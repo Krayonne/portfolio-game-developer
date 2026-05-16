@@ -91,8 +91,8 @@ The page is divided into these sections in order. Each has an `id` for anchor na
 | Project | Role | Links |
 |---|---|---|
 | Abyss of Eden | Lead Programmer | YouTube + itch.io |
-| Abyss of Eden: The Sinner Requiem | Lead Programmer | *(in development, no links yet)* |
-| Summer Bakery | Game Designer · Programmer | YouTube |
+| Abyss of Eden: The Sinners' Requiem | Lead Programmer · Tools & Data Designer | *(in development, no links yet)* |
+| Summer Bakery | Game Designer · Programmer · Music Composer | YouTube |
 | White Heat | Game Designer · Lead Programmer | YouTube |
 | Zeta Zero | Solo Developer | YouTube |
 | Core Control | Solo Developer | *(no links yet)* |

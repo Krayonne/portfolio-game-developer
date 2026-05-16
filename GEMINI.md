@@ -27,7 +27,7 @@ Everything runs in the browser directly.
     ├── hero-artris.png      ← Hero banner image
     ├── profile-thanadul-suanma.jpg ← Profile photo
     ├── aoe-cover.jpg        ← Abyss of Eden thumbnail
-    ├── aoe-tsr-cover.jpg    ← Abyss of Eden: The Sinners' Requiem thumbnail
+    ├── aoe-tsr-cover.png    ← Abyss of Eden: The Sinners' Requiem thumbnail
     ├── summer-bakery-cover.jpg
     ├── white-heat-cover.jpg
     ├── zeta-zero-cover.jpg

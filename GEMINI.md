@@ -24,12 +24,14 @@ Everything runs in the browser directly.
 ├── index.html               ← The entire website (HTML + CSS + JS in one file)
 ├── GEMINI.md                ← This file
 └── Images/
+    ├── hero-artris.png      ← Hero banner image
+    ├── profile-thanadul-suanma.jpg ← Profile photo
     ├── aoe-cover.jpg        ← Abyss of Eden thumbnail
-    ├── aoe-tsr-cover.jpg    ← Abyss of Eden: The Sinner Requiem thumbnail
+    ├── aoe-tsr-cover.jpg    ← Abyss of Eden: The Sinners' Requiem thumbnail
     ├── summer-bakery-cover.jpg
     ├── white-heat-cover.jpg
     ├── zeta-zero-cover.jpg
-    └── core-control-cover.jpg
+    └── core-control-cover.png
 ```
 
 **All code lives inside `index.html`.** There are no separate `.css` or `.js` files.
@@ -55,16 +57,16 @@ Always use these variables:
 
 | Variable | Value | Usage |
 |---|---|---|
-| `--bg` | `#f0f5ff` | Page background |
+| `--bg` | `#fdf0f5` | Page background |
 | `--surface` | `#ffffff` | Card / component background |
-| `--surface2` | `#e8f0fe` | Alternate section background |
-| `--blue1` | `#7eabf5` | Primary accent (buttons, highlights) |
-| `--blue2` | `#a8c8ff` | Medium accent |
-| `--blue3` | `#d6e8ff` | Light accent (borders, tags, badges) |
-| `--blue4` | `#4f86e0` | Dark accent (text on light bg) |
-| `--text` | `#3a4a6b` | Main body text |
-| `--text-soft` | `#7a8eb5` | Muted / secondary text |
-| `--card-shadow` | `0 4px 24px rgba(100,140,220,0.12)` | Card drop shadow |
+| `--surface2` | `#fce8f0` | Alternate section background |
+| `--blue1` | `#e8829a` | Primary accent (buttons, highlights) |
+| `--blue2` | `#f4b8c8` | Medium accent |
+| `--blue3` | `#fce8f0` | Light accent (borders, tags, badges) |
+| `--blue4` | `#c4516a` | Dark accent (text on light bg) |
+| `--text` | `#4a2d35` | Main body text |
+| `--text-soft` | `#9e6b7a` | Muted / secondary text |
+| `--card-shadow` | `0 4px 24px rgba(220,100,130,0.12)` | Card drop shadow |
 | `--radius-lg` | `24px` | Large corner radius |
 | `--radius-md` | `16px` | Medium corner radius |
 | `--radius-sm` | `10px` | Small corner radius |

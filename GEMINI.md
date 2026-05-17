@@ -23,15 +23,20 @@ Everything runs in the browser directly.
 /
 ├── index.html               ← The entire website (HTML + CSS + JS in one file)
 ├── GEMINI.md                ← This file
-└── image/
-    ├── hero-artris.png      ← Hero banner image
-    ├── profile-thanadul-suanma.jpg ← Profile photo
-    ├── aoe-cover.jpg        ← Abyss of Eden thumbnail
-    ├── aoe-tsr-cover.png    ← Abyss of Eden: The Sinners' Requiem thumbnail
-    ├── summer-bakery-cover.jpg
-    ├── white-heat-cover.jpg
-    ├── zeta-zero-cover.jpg
-    └── core-control-cover.png
+├── image/
+│   ├── hero-artris.png      ← Hero banner image
+│   ├── profile-thanadul-suanma.jpg ← Profile photo
+│   ├── aoe-cover.jpg        ← Abyss of Eden thumbnail
+│   ├── aoe-tsr-cover.png    ← Abyss of Eden: The Sinners' Requiem thumbnail
+│   ├── summer-bakery-cover.jpg
+│   ├── white-heat-cover.jpg
+│   ├── zeta-zero-cover.jpg
+│   └── core-control-cover.png
+└── audio/
+    ├── bgm-summer-bakery.mp3
+    ├── sfx-aoe-death-silent.mp3
+    ├── sfx-aoe-moon-slash.mp3
+    └── voice-aoe-ultimates.wav
 ```
 
 **All code lives inside `index.html`.** There are no separate `.css` or `.js` files.
@@ -83,6 +88,7 @@ The page is divided into these sections in order. Each has an `id` for anchor na
 | Hero | `#home` | Name, tagline, CTA buttons, banner image |
 | About | `#about` | Profile photo, bio text, skill pills |
 | Projects | `#projects` | Grid of project cards |
+| Audio | `#audio` | Grid of audio cards with players |
 | Contact | `#contact` | Email, GitHub, itch.io links |
 | Footer | *(no ID)* | Copyright text |
 

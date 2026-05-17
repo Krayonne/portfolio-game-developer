@@ -284,6 +284,46 @@
     }
 
     /* ══════════════════════════════════════
+       AUDIO SECTION
+    ══════════════════════════════════════ */
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+    .audio-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      border: 1.5px solid var(--blue3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s;
+      height: 100%;
+    }
+    .audio-card:hover { transform: translateY(-4px); }
+    .audio-card-header { height: 8px; width: 100%; }
+    .audio-card-body { 
+      padding: 24px; 
+      display: flex; 
+      flex-direction: column; 
+      flex-grow: 1; 
+      justify-content: space-between; 
+    }
+    .audio-card-meta { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+    .audio-card-body h4 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; color: var(--text); }
+    .audio-card-body p { font-size: .85rem; color: var(--text-soft); margin-bottom: 16px; }
+    
+    audio {
+      width: 100%;
+      accent-color: var(--blue1);
+      margin-top: 8px;
+    }
+    .audio-type-pill { margin: 0; font-size: 0.7rem; padding: 4px 10px; }
+
+    /* ══════════════════════════════════════
        CONTACT
     ══════════════════════════════════════ */
     .contact-box {
@@ -339,11 +379,12 @@
 <!-- --- Navigation --- -->
 <nav>
   <div class="container">
-    <div class="nav-logo">Thanadul<span>.Dev</span></div>
+    <div class="nav-logo">My<span> Portfolio</span></div>
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
+      <a href="#audio">Audio</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -384,7 +425,7 @@
       <div class="about-text">
         <h3>Thanadul Suanma | Unity Developer</h3>
         <p>
-          Hello! I am a 3rd-year Interactive and Game Design student at SPU. I specialize in Unity 6.3 and C#, focusing on structural problem-solving, gameplay systems, and multiplayer netcode.
+          Hello! I am a 3rd-year Interactive and Game Design student at SPU. I specialize in Unity and C#, focusing on structural problem-solving, gameplay systems, and multiplayer netcode.
         </p>
         <p>
           My main passion lies in backend game architecture and performance optimization, ensuring clean code and smooth gameplay experiences even in complex scenarios.
@@ -393,7 +434,7 @@
           I also integrate AI-assisted tooling into my development workflow to accelerate iteration, from rapid prototyping to documentation, keeping focus on architecture and problem-solving rather than repetitive groundwork.
         </p>
         <div class="skill-pills">
-          <span class="skill-pill">Unity 6.3</span>
+          <span class="skill-pill">Unity</span>
           <span class="skill-pill">C#</span>
           <span class="skill-pill">Optimization</span>
           <span class="skill-pill">Multiplayer Netcode</span>
@@ -477,7 +518,7 @@
             <h3>Summer Bakery</h3>
             <p class="project-role">Game Designer · Programmer · Music&nbsp;Composer</p>
           </div>
-          <p>A cozy 2D RPG featuring an NPC shop, dialogue system, and relationship mechanics.</p>
+          <p>A cozy 2D RPG where players serve the correct orders to customers. Serving the right dishes builds relationship gauges with characters, unlocking CG scenes with unique dialogue after each in-game day</p>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -570,6 +611,86 @@
   </div>
 </section>
 
+<!-- ════ AUDIO WORK ════ -->
+<section class="section" id="audio" style="background: var(--surface2);">
+  <div class="container">
+    <div class="section-header">
+      <h2>Audio Work</h2>
+      <p>Sound design and music compositions</p>
+    </div>
+    <div class="audio-grid">
+
+      <!-- AUDIO 1 -->
+      <div class="audio-card">
+        <div class="audio-card-header" style="background: var(--blue1);"></div>
+        <div class="audio-card-body">
+          <div class="audio-card-meta">
+            <span class="tag">Summer Bakery</span>
+            <span class="skill-pill audio-type-pill">BGM</span>
+          </div>
+          <h4>Summer Bakery — BGM</h4>
+          <p>Main background theme for the cozy 2D RPG</p>
+          <audio controls>
+            <source src="audio/bgm-summer-bakery.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <!-- AUDIO 2 -->
+      <div class="audio-card">
+        <div class="audio-card-header" style="background: var(--blue1);"></div>
+        <div class="audio-card-body">
+          <div class="audio-card-meta">
+            <span class="tag">Abyss of Eden</span>
+            <span class="skill-pill audio-type-pill">SFX</span>
+            <span class="skill-pill audio-type-pill">Layering</span>
+          </div>
+          <h4>Death Silent</h4>
+          <p>Sound effect for the Death Silent ultimate ability</p>
+          <audio controls>
+            <source src="audio/sfx-aoe-death-silent.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <!-- AUDIO 3 -->
+      <div class="audio-card">
+        <div class="audio-card-header" style="background: var(--blue1);"></div>
+        <div class="audio-card-body">
+          <div class="audio-card-meta">
+            <span class="tag">Abyss of Eden</span>
+            <span class="skill-pill audio-type-pill">SFX</span>
+            <span class="skill-pill audio-type-pill">Layering</span>
+          </div>
+          <h4>Moon Slash</h4>
+          <p>Sound effect for the Moon Slash ultimate ability</p>
+          <audio controls>
+            <source src="audio/sfx-aoe-moon-slash.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <!-- AUDIO 4 -->
+      <div class="audio-card">
+        <div class="audio-card-header" style="background: var(--blue1);"></div>
+        <div class="audio-card-body">
+          <div class="audio-card-meta">
+            <span class="tag">Abyss of Eden</span>
+            <span class="skill-pill audio-type-pill">Voice</span>
+            <span class="skill-pill audio-type-pill">VOICEVOX</span>
+          </div>
+          <h4>Ultimate Voice Lines</h4>
+          <p>Character voice lines for ultimate abilities</p>
+          <audio controls>
+            <source src="audio/voice-aoe-ultimates.wav" type="audio/wav">
+          </audio>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ════ CONTACT ════ -->
 <section class="section" id="contact">
   <div class="container">
@@ -596,7 +717,15 @@
 </footer>
 
 <script>
-// --- Methods ---
+  // Ensure only one audio plays at a time
+  document.addEventListener('play', function(e) {
+    const audios = document.getElementsByTagName('audio');
+    for (let i = 0; i < audios.length; i++) {
+      if (audios[i] !== e.target) {
+        audios[i].pause();
+      }
+    }
+  }, true);
 </script>
 
 </body>

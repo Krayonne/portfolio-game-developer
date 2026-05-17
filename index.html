@@ -367,10 +367,63 @@
     ══════════════════════════════════════ */
     @media (max-width: 768px) {
       .hero-inner, .about-grid { grid-template-columns: 1fr; }
+      .about-grid { flex-direction: column; align-items: center; }
+      .hero-text { text-align: center; }
+      .hero-text p { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .about-text { text-align: center; }
+      .skill-pills { justify-content: center; }
       .hero-img-wrap { order: -1; }
       .about-avatar { max-width: 200px; margin: 0 auto; }
+      .about-avatar { margin: 0 auto; }
       .contact-box { padding: 36px 20px; }
       .nav-links { display: none; }
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--blue4);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      background: rgba(253,240,245,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--blue3);
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0;
+      z-index: 99;
+      padding: 16px 24px;
+      gap: 0;
+    }
+    .nav-mobile a {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-soft);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--blue3);
+      transition: color .2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--blue4); }
+    .nav-mobile.open { display: flex; }
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex; }
     }
   </style>
 </head>
@@ -388,8 +441,20 @@
       <a href="#audio">Audio</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="nav-mobile" id="navMobile">
+  <a href="#home" onclick="closeMobileMenu()">Home</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+  <a href="#assets" onclick="closeMobileMenu()">Assets</a>
+  <a href="#audio" onclick="closeMobileMenu()">Audio</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
 
 <!-- ════ HERO ════ -->
 <section class="hero" id="home">
@@ -804,6 +869,14 @@
       }
     }
   }, true);
+
+  function toggleMobileMenu() {
+    document.getElementById('navMobile').classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('navMobile').classList.remove('open');
+  }
+  document.getElementById('navHamburger').addEventListener('click', toggleMobileMenu);
 </script>
 
 </body>

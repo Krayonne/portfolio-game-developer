@@ -33,7 +33,8 @@ Everything runs in the browser directly.
 │   ├── zeta-zero-cover.jpg
 │   └── core-control-cover.png
 └── audio/
-    ├── bgm-summer-bakery.mp3
+    ├── music-flagellant.mp3
+    ├── music-summer-bakery.mp3
     ├── sfx-aoe-death-silent.mp3
     ├── sfx-aoe-moon-slash.mp3
     └── voice-aoe-ultimates.wav

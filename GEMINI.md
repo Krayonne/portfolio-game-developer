@@ -23,7 +23,7 @@ Everything runs in the browser directly.
 /
 ├── index.html               ← The entire website (HTML + CSS + JS in one file)
 ├── GEMINI.md                ← This file
-└── Images/
+└── image/
     ├── hero-artris.png      ← Hero banner image
     ├── profile-thanadul-suanma.jpg ← Profile photo
     ├── aoe-cover.jpg        ← Abyss of Eden thumbnail
@@ -108,8 +108,8 @@ The page is divided into these sections in order. Each has an `id` for anchor na
 3. **Do not add any build steps** (no npm, no webpack, no compilers). This must stay openable by just double-clicking `index.html`.
 4. **Always use CSS variables** from `:root` for colors. Never write raw hex codes like `#7eabf5` outside of `:root`.
 5. **Preserve the existing section order** when adding new content.
-6. **Images go in the `Images/` folder** and are referenced as `Images/filename.jpg` (relative path, no leading slash).
-7. **Placeholder images** use `https://via.placeholder.com/` URLs. Replace them with real image paths from the `Images/` folder when actual images are provided.
+6. **Images go in the `image/` folder** and are referenced as `image/filename.jpg` (relative path, no leading slash).
+7. **Placeholder images** use `https://via.placeholder.com/` URLs. Replace them with real image paths from the `image/` folder when actual images are provided.
 8. **Font Awesome icons** are already loaded. Use class names like `fa-solid fa-envelope` or `fa-brands fa-github`.
 
 ---
@@ -140,7 +140,7 @@ Only edit the values inside `:root {}` at the top of `<style>`. Do not change va
 
 ## What "Looks Good" Means for This Site
 
-- Pastel blue color palette — soft, not saturated or dark
+- Rose petal color palette — soft, not saturated or dark
 - Rounded corners everywhere (`border-radius` using the variables above)
 - Cards have a subtle box-shadow (`var(--card-shadow)`)
 - Buttons and cards have a `translateY(-Npx)` hover lift effect

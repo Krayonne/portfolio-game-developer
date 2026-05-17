@@ -30,8 +30,12 @@ Everything runs in the browser directly.
 │   ├── aoe-tsr-cover.png    ← Abyss of Eden: The Sinners' Requiem thumbnail
 │   ├── summer-bakery-cover.jpg
 │   ├── white-heat-cover.jpg
-│   ├── zeta-zero-cover.jpg
-│   └── core-control-cover.png
+├── zeta-zero-cover.jpg
+├── core-control-cover.png
+├── model-rocket.png
+├── model-fpv.png
+├── model-ifv.png
+└── model-mbt.png
 └── audio/
     ├── music-flagellant.mp3
     ├── music-summer-bakery.mp3
@@ -89,6 +93,7 @@ The page is divided into these sections in order. Each has an `id` for anchor na
 | Hero | `#home` | Name, tagline, CTA buttons, banner image |
 | About | `#about` | Profile photo, bio text, skill pills |
 | Projects | `#projects` | Grid of project cards |
+| Assets | `#assets` | Grid of 3D model cards |
 | Audio | `#audio` | Grid of audio cards with players |
 | Contact | `#contact` | Email, GitHub, itch.io links |
 | Footer | *(no ID)* | Copyright text |

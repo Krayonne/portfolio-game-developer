@@ -426,6 +426,116 @@
     @media (max-width: 768px) {
       .nav-hamburger { display: flex; }
     }
+
+    /* ══════════════════════════════════════
+       FEATURED PROJECT CARD
+    ══════════════════════════════════════ */
+    .project-card-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      border: 1.5px solid var(--blue3);
+      transition: transform .3s, box-shadow .3s;
+      background: var(--surface);
+    }
+    .project-card-featured:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(220,100,130,.22);
+    }
+    .project-card-featured .project-thumb {
+      aspect-ratio: unset;
+      min-height: 260px;
+      border-radius: 0;
+    }
+    .project-card-featured .project-body {
+      padding: 32px;
+      justify-content: center;
+    }
+    .project-card-featured .project-body h3 {
+      font-size: 1.4rem;
+    }
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--blue1), var(--blue4));
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 768px) {
+      .project-card-featured {
+        grid-template-columns: 1fr;
+      }
+      .project-card-featured .project-thumb {
+        min-height: 200px;
+        aspect-ratio: 16/9;
+      }
+      .project-card-featured .project-body {
+        padding: 20px;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       TECH BULLET LIST
+    ══════════════════════════════════════ */
+    .project-tech-list {
+      list-style: none;
+      margin: 10px 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .project-tech-list li {
+      font-size: .8rem;
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.4;
+    }
+    .project-tech-list li::before {
+      content: '▸';
+      color: var(--blue1);
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: .85rem;
+    }
+
+    /* ══════════════════════════════════════
+       IN-DEV CORNER RIBBON
+    ══════════════════════════════════════ */
+    .ribbon-wrap {
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      overflow: hidden;
+      z-index: 3;
+      border-radius: 0 var(--radius-lg) 0 0;
+    }
+    .ribbon {
+      position: absolute;
+      top: 18px;
+      right: -24px;
+      background: var(--blue4);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 800;
+      padding: 5px 36px;
+      transform: rotate(45deg);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -523,18 +633,23 @@
     </div>
     <div class="projects-grid">
 
-      <!-- PROJECT 1 — ABYSS OF EDEN -->
-      <div class="project-card">
+      <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
+      <div class="project-card-featured">
         <div class="project-thumb">
           <img src="image/aoe-cover.jpg" alt="Abyss of Eden" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
         </div>
         <div class="project-body">
+          <div class="featured-badge"><i class="fa-solid fa-star"></i> Featured Project</div>
           <div class="project-header">
             <h3>Abyss of Eden</h3>
             <p class="project-role">Lead Programmer</p>
           </div>
-          <p>I built this as a horde survival game where hundreds of monsters swarm the player at once. My main challenge was keeping it fast — I spent a lot of time optimizing so the FPS never tanks even when everything goes crazy on screen.</p>
+          <p>A horde survival game where hundreds of monsters swarm the player at once. My main challenge was keeping it fast — I spent a lot of time optimizing so the FPS never tanks even when everything goes crazy on screen.</p>
+          <ul class="project-tech-list">
+            <li>Object pooling system managing 300+ simultaneous enemies</li>
+            <li>Unity Profiler-driven frame budget optimization</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -557,6 +672,7 @@
         <div class="project-thumb">
           <img src="image/aoe-tsr-cover.png" alt="The Sinners' Requiem" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
+          <div class="ribbon-wrap"><div class="ribbon">In Dev</div></div>
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -564,6 +680,10 @@
             <p class="project-role">Lead Programmer · Tools & Data Designer</p>
           </div>
           <p>The sequel to Abyss of Eden, and my biggest project yet. It's an action-RPG with online co-op — I'm handling the multiplayer backend, making sure everything stays in sync across players without breaking the game feel.</p>
+          <ul class="project-tech-list">
+            <li>Multiplayer backend using Unity Netcode for GameObjects</li>
+            <li>Custom editor tools for data &amp; encounter design</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -586,6 +706,12 @@
             <p class="project-role">Game Designer · Programmer · Music&nbsp;Composer</p>
           </div>
           <p>A cozy 2D game where you run a bakery and serve customers. I designed it, programmed it, and wrote the music. The more you get orders right, the closer you get to the characters — each day ends with a little CG scene.</p>
+          <ul class="project-tech-list">
+            <li>NPC relationship system with progressive story unlocks</li>
+            <li>Procedural order generation for randomized customer requests</li>
+            <li>Original BGM composed and integrated into game state</li>
+            <li>Save/load system for persistent progress</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -612,6 +738,10 @@
             <p class="project-role">Game Designer · Lead Programmer</p>
           </div>
           <p>A top-down tactical game I led the programming on. Units use AI to navigate and react, you can hide in cover, and bullets actually travel — not instant hits. Think slow, deliberate, satisfying.</p>
+          <ul class="project-tech-list">
+            <li>Projectile physics system with real travel time &amp; ballistics</li>
+            <li>NavMesh + custom steering behavior for unit AI</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -638,6 +768,11 @@
             <p class="project-role">Solo Developer</p>
           </div>
           <p>A solo survival game I made from scratch. Monsters detect you by sight and sound, you manage weapons and ammo, and dying actually hurts. I built all the systems myself and used it to test my design instincts.</p>
+          <ul class="project-tech-list">
+            <li>Sight &amp; sound detection AI with dynamic noise radius per weapon</li>
+            <li>NavMesh pathfinding with enemy chase &amp; patrol states</li>
+            <li>Weapon spread system — accuracy changes with stance &amp; movement</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>
@@ -664,6 +799,9 @@
             <p class="project-role">Solo Developer</p>
           </div>
           <p>A VR game where you're in charge of a nuclear reactor — pulling levers, managing systems, trying not to cause a meltdown. I built it solo and it taught me a lot about interaction design in physical space.</p>
+          <ul class="project-tech-list">
+            <li>VR interaction system with physical lever &amp; button feedback</li>
+          </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
             <span class="tag">C#</span>

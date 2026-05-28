@@ -680,11 +680,17 @@
       transform: translateY(-6px);
       box-shadow: 0 12px 36px rgba(100,140,220,.2);
     }
-    .asset-card img {
-      width: 100%;
+    .asset-thumb {
       aspect-ratio: 4/3;
-      object-fit: cover;
+      background: linear-gradient(135deg, var(--blue3) 0%, var(--blue2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .asset-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* --- 3D Parallax Tilt Effects --- */
@@ -931,8 +937,8 @@
     <div class="projects-grid">
 
       <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
-      <div class="project-card-featured tilt-card">
-        <div class="project-thumb">
+      <div class="project-card-featured">
+        <div class="project-thumb tilt-card">
           <img src="image/aoe-cover.jpg" alt="Abyss of Eden" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
         </div>
@@ -965,8 +971,8 @@
       </div>
 
       <!-- PROJECT 2 — THE SINNERS' REQUIEM -->
-      <div class="project-card tilt-card">
-        <div class="project-thumb">
+      <div class="project-card">
+        <div class="project-thumb tilt-card">
           <img src="image/aoe-tsr-cover.png" alt="The Sinners' Requiem" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
           <div class="ribbon-wrap"><div class="ribbon">In Dev</div></div>
@@ -992,8 +998,8 @@
       </div>
 
       <!-- PROJECT 3 — SUMMER BAKERY -->
-      <div class="project-card tilt-card">
-        <div class="project-thumb">
+      <div class="project-card">
+        <div class="project-thumb tilt-card">
           <img src="image/summer-bakery-cover.jpg" alt="Summer Bakery" />
           <span class="tag project-thumb-label">2D RPG</span>
         </div>
@@ -1024,8 +1030,8 @@
       </div>
 
       <!-- PROJECT 4 — WHITE HEAT -->
-      <div class="project-card tilt-card">
-        <div class="project-thumb">
+      <div class="project-card">
+        <div class="project-thumb tilt-card">
           <img src="image/white-heat-cover.jpg" alt="White Heat" />
           <span class="tag project-thumb-label">3D Tactical</span>
         </div>
@@ -1054,8 +1060,8 @@
       </div>
 
       <!-- PROJECT 5 — ZETA ZERO -->
-      <div class="project-card tilt-card">
-        <div class="project-thumb">
+      <div class="project-card">
+        <div class="project-thumb tilt-card">
           <img src="image/zeta-zero-cover.jpg" alt="Zeta Zero" />
           <span class="tag project-thumb-label">Survival</span>
         </div>
@@ -1085,8 +1091,8 @@
       </div>
 
       <!-- PROJECT 6 — CORE CONTROL -->
-      <div class="project-card tilt-card">
-        <div class="project-thumb">
+      <div class="project-card">
+        <div class="project-thumb tilt-card">
           <img src="image/core-control-cover.png" alt="Core Control" />
           <span class="tag project-thumb-label">VR</span>
         </div>
@@ -1122,8 +1128,10 @@
     </div>
     <div class="assets-grid">
 
-      <div class="asset-card tilt-card">
-        <img src="image/model-rocket.png" alt="Rocket Artillery" />
+      <div class="asset-card">
+        <div class="asset-thumb tilt-card">
+          <img src="image/model-rocket.png" alt="Rocket Artillery" />
+        </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Rocket Artillery</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
@@ -1131,8 +1139,10 @@
         </div>
       </div>
 
-      <div class="asset-card tilt-card">
-        <img src="image/model-fpv.png" alt="FPV Drone" />
+      <div class="asset-card">
+        <div class="asset-thumb tilt-card">
+          <img src="image/model-fpv.png" alt="FPV Drone" />
+        </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">FPV Drone</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by FPV drones seen in the Russia-Ukraine war — small, cheap, and devastatingly effective at taking out armored targets.</p>
@@ -1140,8 +1150,10 @@
         </div>
       </div>
 
-      <div class="asset-card tilt-card">
-        <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" />
+      <div class="asset-card">
+        <div class="asset-thumb tilt-card">
+          <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" />
+        </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Infantry Fighting Vehicle</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</p>
@@ -1149,8 +1161,10 @@
         </div>
       </div>
 
-      <div class="asset-card tilt-card">
-        <img src="image/model-mbt.png" alt="Main Battle Tank" />
+      <div class="asset-card">
+        <div class="asset-thumb tilt-card">
+          <img src="image/model-mbt.png" alt="Main Battle Tank" />
+        </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Main Battle Tank</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the T-84 Oplot, adapted as the game's heaviest offensive unit — Ukrainian steel with serious firepower.</p>
@@ -1179,7 +1193,7 @@
       </div>
 
       <!-- AUDIO 1 -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Summer Bakery — BGM</h4>
@@ -1209,7 +1223,7 @@
       </div>
 
       <!-- AUDIO 5 (Reordered) -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Flagellant — Chase Theme</h4>
@@ -1246,7 +1260,7 @@
       </div>
 
       <!-- AUDIO: Battle Start -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Battle Start</h4>
@@ -1276,7 +1290,7 @@
       </div>
 
       <!-- AUDIO 2 -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Silent (Ultimate SFX)</h4>
@@ -1306,7 +1320,7 @@
       </div>
 
       <!-- AUDIO: Dead -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Screen Ambient</h4>
@@ -1336,7 +1350,7 @@
       </div>
 
       <!-- AUDIO 3 -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Moon Slash (Ultimate SFX)</h4>
@@ -1366,7 +1380,7 @@
       </div>
 
       <!-- AUDIO 4 -->
-      <div class="audio-card tilt-card">
+      <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Ultimate Voice Lines</h4>

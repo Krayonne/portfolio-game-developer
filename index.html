@@ -536,9 +536,306 @@
       box-shadow: 0 2px 8px rgba(0,0,0,.2);
       white-space: nowrap;
     }
+
+    /* --- Background Canvas --- */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* --- Custom Audio Player --- */
+    .custom-audio-player {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: var(--surface2);
+      border: 1px solid var(--blue3);
+    }
+    .audio-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .audio-play-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue1);
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(232, 130, 154, 0.3);
+    }
+    .audio-play-btn:hover {
+      background: var(--blue4);
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(196, 81, 106, 0.4);
+    }
+    .audio-slider-wrap {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audio-slider {
+      flex-grow: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--surface);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: 1px solid var(--blue3);
+    }
+    .audio-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--blue1);
+      cursor: pointer;
+      transition: transform 0.1s, background 0.1s;
+    }
+    .audio-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.3);
+      background: var(--blue4);
+    }
+    .audio-time {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      min-width: 65px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .audio-visualizer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+      height: 20px;
+      margin-top: 2px;
+      opacity: 0.4;
+      transition: opacity 0.3s;
+    }
+    .audio-visualizer.playing {
+      opacity: 1;
+    }
+    .audio-visualizer .bar {
+      width: 4px;
+      height: 4px;
+      background: var(--blue1);
+      border-radius: 2px;
+      transition: height 0.1s ease;
+    }
+    @keyframes pulse-bar {
+      0%, 100% { height: 4px; }
+      50% { height: 18px; }
+    }
+    .audio-visualizer.playing .bar:nth-child(1) { animation: pulse-bar 0.6s ease-in-out infinite alternate; }
+    .audio-visualizer.playing .bar:nth-child(2) { animation: pulse-bar 0.4s ease-in-out infinite alternate 0.1s; }
+    .audio-visualizer.playing .bar:nth-child(3) { animation: pulse-bar 0.8s ease-in-out infinite alternate 0.2s; }
+    .audio-visualizer.playing .bar:nth-child(4) { animation: pulse-bar 0.5s ease-in-out infinite alternate 0.05s; }
+    .audio-visualizer.playing .bar:nth-child(5) { animation: pulse-bar 0.7s ease-in-out infinite alternate 0.15s; }
+    .audio-visualizer.playing .bar:nth-child(6) { animation: pulse-bar 0.3s ease-in-out infinite alternate 0.25s; }
+    .audio-visualizer.playing .bar:nth-child(7) { animation: pulse-bar 0.6s ease-in-out infinite alternate 0.1s; }
+    .audio-visualizer.playing .bar:nth-child(8) { animation: pulse-bar 0.5s ease-in-out infinite alternate 0.2s; }
+
+    /* --- Predefined Previews and Layouts --- */
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .asset-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      border: 1.5px solid var(--blue3);
+      transition: transform .3s, box-shadow .3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .asset-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(100,140,220,.2);
+    }
+    .asset-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    /* --- 3D Parallax Tilt Effects --- */
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+      position: relative;
+    }
+    .tilt-card-glare {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 10;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
+      transition: background-image 0.1s ease;
+    }
+
+    /* --- Lightbox Modal --- */
+    .lightbox-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox-modal.open {
+      display: flex;
+    }
+    .lightbox-backdrop {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(74, 45, 53, 0.4);
+      backdrop-filter: blur(10px);
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-content {
+      position: relative;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-lg);
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(220, 100, 130, 0.25);
+      border: 1.5px solid var(--blue3);
+      overflow: hidden;
+      z-index: 10;
+      transform: scale(0.92);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    .lightbox-modal.open .lightbox-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--blue3);
+      color: var(--blue4);
+      font-size: 1.4rem;
+      font-weight: 300;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 20;
+      transition: background 0.2s, transform 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .lightbox-close:hover {
+      background: var(--blue1);
+      color: #fff;
+      transform: scale(1.05) rotate(90deg);
+    }
+    .lightbox-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: stretch;
+      min-height: 440px;
+    }
+    .lightbox-media {
+      background: linear-gradient(135deg, var(--blue3) 0%, var(--blue2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .lightbox-media img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .lightbox-details {
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+    .lightbox-details h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 8px 0 4px 0;
+      line-height: 1.2;
+    }
+    .lightbox-role {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--blue1);
+      margin-bottom: 12px;
+    }
+    .lightbox-description {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin: 12px 0 20px 0;
+      line-height: 1.6;
+    }
+    .lightbox-description p {
+      margin-bottom: 12px;
+    }
+    .lightbox-meta {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--blue3);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    @media (max-width: 768px) {
+      .lightbox-body {
+        grid-template-columns: 1fr;
+      }
+      .lightbox-media {
+        aspect-ratio: 16/10;
+        max-height: 240px;
+      }
+      .lightbox-details {
+        padding: 24px;
+        max-height: 55vh;
+      }
+      .lightbox-modal {
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
+<canvas id="bg-canvas"></canvas>
 
 <!-- --- Navigation --- -->
 <nav>
@@ -634,7 +931,7 @@
     <div class="projects-grid">
 
       <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
-      <div class="project-card-featured">
+      <div class="project-card-featured tilt-card">
         <div class="project-thumb">
           <img src="image/aoe-cover.jpg" alt="Abyss of Eden" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
@@ -668,7 +965,7 @@
       </div>
 
       <!-- PROJECT 2 — THE SINNERS' REQUIEM -->
-      <div class="project-card">
+      <div class="project-card tilt-card">
         <div class="project-thumb">
           <img src="image/aoe-tsr-cover.png" alt="The Sinners' Requiem" />
           <span class="tag project-thumb-label">Dark Fantasy</span>
@@ -695,7 +992,7 @@
       </div>
 
       <!-- PROJECT 3 — SUMMER BAKERY -->
-      <div class="project-card">
+      <div class="project-card tilt-card">
         <div class="project-thumb">
           <img src="image/summer-bakery-cover.jpg" alt="Summer Bakery" />
           <span class="tag project-thumb-label">2D RPG</span>
@@ -727,7 +1024,7 @@
       </div>
 
       <!-- PROJECT 4 — WHITE HEAT -->
-      <div class="project-card">
+      <div class="project-card tilt-card">
         <div class="project-thumb">
           <img src="image/white-heat-cover.jpg" alt="White Heat" />
           <span class="tag project-thumb-label">3D Tactical</span>
@@ -757,7 +1054,7 @@
       </div>
 
       <!-- PROJECT 5 — ZETA ZERO -->
-      <div class="project-card">
+      <div class="project-card tilt-card">
         <div class="project-thumb">
           <img src="image/zeta-zero-cover.jpg" alt="Zeta Zero" />
           <span class="tag project-thumb-label">Survival</span>
@@ -788,7 +1085,7 @@
       </div>
 
       <!-- PROJECT 6 — CORE CONTROL -->
-      <div class="project-card">
+      <div class="project-card tilt-card">
         <div class="project-thumb">
           <img src="image/core-control-cover.png" alt="Core Control" />
           <span class="tag project-thumb-label">VR</span>
@@ -823,10 +1120,10 @@
       <h2>Game Assets</h2>
       <p>Low-poly 3D models I made in Maya for White Heat</p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+    <div class="assets-grid">
 
-      <div style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--card-shadow); border: 1.5px solid var(--blue3); transition: transform .3s;">
-        <img src="image/model-rocket.png" alt="Rocket Artillery" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0;" />
+      <div class="asset-card tilt-card">
+        <img src="image/model-rocket.png" alt="Rocket Artillery" />
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Rocket Artillery</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
@@ -834,8 +1131,8 @@
         </div>
       </div>
 
-      <div style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--card-shadow); border: 1.5px solid var(--blue3); transition: transform .3s;">
-        <img src="image/model-fpv.png" alt="FPV Drone" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0;" />
+      <div class="asset-card tilt-card">
+        <img src="image/model-fpv.png" alt="FPV Drone" />
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">FPV Drone</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by FPV drones seen in the Russia-Ukraine war — small, cheap, and devastatingly effective at taking out armored targets.</p>
@@ -843,8 +1140,8 @@
         </div>
       </div>
 
-      <div style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--card-shadow); border: 1.5px solid var(--blue3); transition: transform .3s;">
-        <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0;" />
+      <div class="asset-card tilt-card">
+        <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" />
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Infantry Fighting Vehicle</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</p>
@@ -852,8 +1149,8 @@
         </div>
       </div>
 
-      <div style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--card-shadow); border: 1.5px solid var(--blue3); transition: transform .3s;">
-        <img src="image/model-mbt.png" alt="Main Battle Tank" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-lg) var(--radius-lg) 0 0;" />
+      <div class="asset-card tilt-card">
+        <img src="image/model-mbt.png" alt="Main Battle Tank" />
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Main Battle Tank</h3>
           <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the T-84 Oplot, adapted as the game's heaviest offensive unit — Ukrainian steel with serious firepower.</p>
@@ -882,7 +1179,7 @@
       </div>
 
       <!-- AUDIO 1 -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Summer Bakery — BGM</h4>
@@ -892,14 +1189,27 @@
             <span class="skill-pill audio-type-pill">BGM</span>
             <span class="skill-pill audio-type-pill">Trap</span>
           </div>
-          <audio controls>
-            <source src="audio/music-summer-bakery.mp3" type="audio/mpeg">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/music-summer-bakery.mp3" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- AUDIO 5 (Reordered) -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Flagellant — Chase Theme</h4>
@@ -909,9 +1219,22 @@
             <span class="skill-pill audio-type-pill">BGM</span>
             <span class="skill-pill audio-type-pill">Frenchcore</span>
           </div>
-          <audio controls>
-            <source src="audio/music-flagellant.mp3" type="audio/mpeg">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/music-flagellant.mp3" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -923,7 +1246,7 @@
       </div>
 
       <!-- AUDIO: Battle Start -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Battle Start</h4>
@@ -933,14 +1256,27 @@
             <span class="skill-pill audio-type-pill">SFX</span>
             <span class="skill-pill audio-type-pill">Layering</span>
           </div>
-          <audio controls>
-            <source src="audio/sfx-aoe-battle-start.wav" type="audio/wav">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/sfx-aoe-battle-start.wav" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- AUDIO 2 -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Silent (Ultimate SFX)</h4>
@@ -950,14 +1286,27 @@
             <span class="skill-pill audio-type-pill">SFX</span>
             <span class="skill-pill audio-type-pill">Layering</span>
           </div>
-          <audio controls>
-            <source src="audio/sfx-aoe-death-silent.mp3" type="audio/mpeg">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/sfx-aoe-death-silent.mp3" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- AUDIO: Dead -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Screen Ambient</h4>
@@ -967,14 +1316,27 @@
             <span class="skill-pill audio-type-pill">SFX</span>
             <span class="skill-pill audio-type-pill">Layering</span>
           </div>
-          <audio controls>
-            <source src="audio/sfx-aoe-dead.mp3" type="audio/mpeg">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/sfx-aoe-dead.mp3" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- AUDIO 3 -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Moon Slash (Ultimate SFX)</h4>
@@ -984,14 +1346,27 @@
             <span class="skill-pill audio-type-pill">SFX</span>
             <span class="skill-pill audio-type-pill">Layering</span>
           </div>
-          <audio controls>
-            <source src="audio/sfx-aoe-moon-slash.mp3" type="audio/mpeg">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/sfx-aoe-moon-slash.mp3" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- AUDIO 4 -->
-      <div class="audio-card">
+      <div class="audio-card tilt-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Ultimate Voice Lines</h4>
@@ -1001,9 +1376,22 @@
             <span class="skill-pill audio-type-pill">Voice</span>
             <span class="skill-pill audio-type-pill">VOICEVOX</span>
           </div>
-          <audio controls>
-            <source src="audio/voice-aoe-ultimates.wav" type="audio/wav">
-          </audio>
+          <div class="custom-audio-player">
+            <audio src="audio/voice-aoe-ultimates.wav" preload="metadata"></audio>
+            <div class="audio-controls-row">
+              <button class="audio-play-btn" aria-label="Play track">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <div class="audio-slider-wrap">
+                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <span class="audio-time">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="audio-visualizer">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1036,16 +1424,410 @@
   <p>© 2026 Thanadul Suanma</p>
 </footer>
 
+<!-- Fullscreen Lightbox Modal -->
+<div class="lightbox-modal" id="lightboxModal">
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer">&times;</button>
+    <div class="lightbox-body">
+      <div class="lightbox-media">
+        <img id="lightboxImg" src="" alt="Asset Preview" />
+      </div>
+      <div class="lightbox-details">
+        <span class="tag" id="lightboxCategory" style="align-self: flex-start;">Category</span>
+        <h3 id="lightboxTitle">Asset Title</h3>
+        <p class="lightbox-role" id="lightboxRole" style="display: none;">Role</p>
+        <div class="lightbox-description" id="lightboxDesc">Description</div>
+        
+        <!-- Action links -->
+        <div class="project-links" id="lightboxLinks" style="display: none; border-top: none; margin-top: 0; padding-top: 0;">
+          <!-- dynamically populated links -->
+        </div>
+
+        <div class="lightbox-meta">
+          <span style="font-size: .75rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">Technical Tags</span>
+          <div class="project-tags" id="lightboxTags">
+            <!-- dynamic tags -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-  // Ensure only one audio plays at a time
-  document.addEventListener('play', function(e) {
-    const audios = document.getElementsByTagName('audio');
-    for (let i = 0; i < audios.length; i++) {
-      if (audios[i] !== e.target) {
-        audios[i].pause();
+  /* ══════════════════════════════════════
+     DYNAMIC CANVAS BACKGROUND (ROSE PETALS)
+     ══════════════════════════════════════ */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const isMobile = window.innerWidth < 768;
+  const particleCount = isMobile ? 12 : 35; // optimal count for silky performance
+  const particles = [];
+  const ripples = [];
+
+  class Petal {
+    constructor() {
+      this.reset();
+      this.y = Math.random() * height; // initial spread so they don't all start from top
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = -20;
+      this.size = Math.random() * 8 + 4; // 4px to 12px
+      this.speedY = Math.random() * 0.6 + 0.3; // gentle drift down
+      this.speedX = Math.random() * 0.4 - 0.2; // soft wind drift
+      this.angle = Math.random() * 360;
+      this.spin = Math.random() * 0.4 - 0.2;
+      this.opacity = Math.random() * 0.35 + 0.15; // soft transparent colors
+      this.color = Math.random() > 0.5 ? '#e8829a' : '#f4b8c8'; // HSL Rose theme matched
+    }
+
+    update(mouseX, mouseY) {
+      this.y += this.speedY;
+      this.x += this.speedX;
+      this.angle += this.spin;
+
+      // Mouse interactive flow-field (attraction/swirl)
+      if (mouseX !== undefined && mouseY !== undefined) {
+        const dx = this.x - mouseX;
+        const dy = this.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 180) {
+          const force = (180 - dist) / 180;
+          const angle = Math.atan2(dy, dx) + Math.PI / 2; // swirl tangent
+          this.x += Math.cos(angle) * force * 1.2;
+          this.y += Math.sin(angle) * force * 0.4;
+        }
+      }
+
+      // Ripple force pushes away
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rip = ripples[i];
+        const rdx = this.x - rip.x;
+        const rdy = this.y - rip.y;
+        const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+        if (rdist < rip.currentRadius) {
+          const pushForce = (1 - (rdist / rip.maxRadius)) * 5;
+          const pushAngle = Math.atan2(rdy, rdx);
+          this.x += Math.cos(pushAngle) * pushForce;
+          this.y += Math.sin(pushAngle) * pushForce;
+        }
+      }
+
+      // Reset when boundary reached
+      if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
+        this.reset();
       }
     }
-  }, true);
+
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle * Math.PI / 180);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      
+      // Draw smooth leaf/petal contour
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.size, this.size * 0.6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Populate
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Petal());
+  }
+
+  // Tracking
+  let mouse = { x: undefined, y: undefined };
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseleave', () => {
+    mouse.x = undefined;
+    mouse.y = undefined;
+  });
+
+  // Dynamic Click ripple
+  window.addEventListener('click', (e) => {
+    // Only ripple if we click background, not buttons or forms
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'I' && !e.target.closest('.project-card') && !e.target.closest('.audio-card')) {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        currentRadius: 0,
+        maxRadius: 100,
+        speed: 3.5,
+        opacity: 0.35
+      });
+    }
+  });
+
+  // Animation Loop
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Ripples update
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      const rip = ripples[i];
+      rip.currentRadius += rip.speed;
+      rip.opacity -= 0.015;
+
+      if (rip.opacity <= 0 || rip.currentRadius >= rip.maxRadius) {
+        ripples.splice(i, 1);
+      } else {
+        ctx.beginPath();
+        ctx.arc(rip.x, rip.y, rip.currentRadius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(232, 130, 154, ${rip.opacity})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    // Petals draw
+    particles.forEach(p => {
+      p.update(mouse.x, mouse.y);
+      p.draw();
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  /* ══════════════════════════════════════
+     CUSTOM AUDIO PLAYERS CONTROLLER
+     ══════════════════════════════════════ */
+  const audioPlayers = document.querySelectorAll('.custom-audio-player');
+
+  audioPlayers.forEach(player => {
+    const audio = player.querySelector('audio');
+    const playBtn = player.querySelector('.audio-play-btn');
+    const playIcon = playBtn.querySelector('i');
+    const slider = player.querySelector('.audio-slider');
+    const timeDisplay = player.querySelector('.audio-time');
+    const visualizer = player.querySelector('.audio-visualizer');
+
+    // Format time: minutes:seconds
+    function formatTime(seconds) {
+      if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Set duration display on loadedmetadata or if already loaded
+    function setupDuration() {
+      timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+    }
+
+    audio.addEventListener('loadedmetadata', setupDuration);
+    if (audio.readyState >= 1) {
+      setupDuration();
+    }
+
+    // Toggle Play/Pause
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent background canvas click ripple
+      if (audio.paused) {
+        // Pause all other players
+        audioPlayers.forEach(otherPlayer => {
+          const otherAudio = otherPlayer.querySelector('audio');
+          if (otherAudio !== audio && !otherAudio.paused) {
+            otherAudio.pause();
+            otherPlayer.querySelector('.audio-play-btn i').className = 'fa-solid fa-play';
+            otherPlayer.querySelector('.audio-visualizer').classList.remove('playing');
+          }
+        });
+
+        audio.play()
+          .then(() => {
+            playIcon.className = 'fa-solid fa-pause';
+            visualizer.classList.add('playing');
+          })
+          .catch(err => console.log("Audio play blocked/failed:", err));
+      } else {
+        audio.pause();
+        playIcon.className = 'fa-solid fa-play';
+        visualizer.classList.remove('playing');
+      }
+    });
+
+    // Update progress slider & time
+    audio.addEventListener('timeupdate', () => {
+      const percentage = (audio.currentTime / audio.duration) * 100;
+      slider.value = isNaN(percentage) ? 0 : percentage;
+      timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+    });
+
+    // Scrubbing track
+    slider.addEventListener('input', () => {
+      const targetTime = (slider.value / 100) * audio.duration;
+      audio.currentTime = isNaN(targetTime) ? 0 : targetTime;
+    });
+
+    // End event
+    audio.addEventListener('ended', () => {
+      playIcon.className = 'fa-solid fa-play';
+      visualizer.classList.remove('playing');
+      slider.value = 0;
+      timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+    });
+  });
+
+  /* ══════════════════════════════════════
+     3D CARD TILT & GLARE EFFECT
+     ══════════════════════════════════════ */
+  const cards = document.querySelectorAll('.tilt-card');
+
+  if (window.innerWidth >= 768) { // disable completely on mobile for gesture/performance sanity
+    cards.forEach(card => {
+      // Create glare overlay element inside card
+      const glare = document.createElement('div');
+      glare.className = 'tilt-card-glare';
+      card.appendChild(glare);
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const w = rect.width;
+        const h = rect.height;
+
+        const xc = w / 2;
+        const yc = h / 2;
+
+        const maxTilt = 8; // subtle, highly professional angle
+        const rotateY = ((x - xc) / xc) * maxTilt;
+        const rotateX = ((yc - y) / yc) * maxTilt;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+        // Specify radial-gradient for glare centered on mouse
+        const glareX = (x / w) * 100;
+        const glareY = (y / h) * 100;
+        glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 65%)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        glare.style.background = 'none';
+        card.style.transition = 'transform 0.5s ease';
+      });
+
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'none';
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════
+     TECHNICAL SPECS FULLSCREEN LIGHTBOX
+     ══════════════════════════════════════ */
+  const projectCards = document.querySelectorAll('.project-card, .project-card-featured');
+  const assetCards = document.querySelectorAll('.asset-card');
+
+  function openLightbox(card, type) {
+    const img = card.querySelector('img').src;
+    const title = card.querySelector('h3').textContent;
+    const category = card.querySelector('.project-thumb-label')?.textContent || (type === 'project' ? 'Game Project' : '3D Art Asset');
+    const desc = card.querySelector('p').textContent;
+    
+    // Technical specs (bullets or extra detail)
+    let detailsHtml = `<p>${desc}</p>`;
+    const techList = card.querySelector('.project-tech-list');
+    if (techList) {
+      detailsHtml += techList.outerHTML;
+    }
+
+    // Role
+    const roleEl = card.querySelector('.project-role');
+    const roleText = roleEl ? roleEl.textContent : '';
+
+    // Tags
+    const tagsContainer = card.querySelector('.project-tags') || card.querySelector('div[style*="flex-wrap"]');
+    const tagsHtml = tagsContainer ? tagsContainer.innerHTML : '';
+
+    // Links
+    const linksContainer = card.querySelector('.project-links');
+    const linksHtml = linksContainer ? linksContainer.innerHTML : '';
+
+    // Populate modal elements
+    document.getElementById('lightboxImg').src = img;
+    document.getElementById('lightboxCategory').textContent = category;
+    document.getElementById('lightboxTitle').textContent = title;
+    document.getElementById('lightboxDesc').innerHTML = detailsHtml;
+    
+    const roleIndicator = document.getElementById('lightboxRole');
+    if (roleText) {
+      roleIndicator.textContent = roleText;
+      roleIndicator.style.display = 'block';
+    } else {
+      roleIndicator.style.display = 'none';
+    }
+
+    const linksArea = document.getElementById('lightboxLinks');
+    if (linksHtml) {
+      linksArea.innerHTML = linksHtml;
+      linksArea.style.display = 'flex';
+    } else {
+      linksArea.style.display = 'none';
+    }
+
+    document.getElementById('lightboxTags').innerHTML = tagsHtml;
+
+    // Show modal
+    const modal = document.getElementById('lightboxModal');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // lock background scroll
+  }
+
+  // Bind clicks
+  projectCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Don't trigger if clicked on links
+      if (e.target.closest('.project-links') || e.target.closest('a')) {
+        return;
+      }
+      openLightbox(card, 'project');
+    });
+  });
+
+  assetCards.forEach(card => {
+    card.addEventListener('click', () => {
+      openLightbox(card, 'asset');
+    });
+  });
+
+  // Close logic
+  const closeModal = () => {
+    const modal = document.getElementById('lightboxModal');
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  document.getElementById('lightboxClose').addEventListener('click', closeModal);
+  document.getElementById('lightboxBackdrop').addEventListener('click', closeModal);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
 
   function toggleMobileMenu() {
     document.getElementById('navMobile').classList.toggle('open');

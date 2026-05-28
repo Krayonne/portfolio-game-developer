@@ -65,23 +65,35 @@
 
     /* ══════════════════════════════════════
        NAVBAR
-    ══════════════════════════════════════ */
+       ══════════════════════════════════════ */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(253,240,245,.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--blue3);
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 1000px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--blue3);
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(220, 100, 130, 0.08), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      transition: top 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
     nav .container {
       display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
+      height: 56px;
+      padding: 0 24px;
     }
     .nav-logo {
-      font-size: 1.2rem; font-weight: 800; color: var(--blue4);
+      font-size: 1.15rem; font-weight: 800; color: var(--blue4);
       letter-spacing: -0.5px;
     }
     .nav-logo span { color: var(--blue1); }
-    .nav-links { display: flex; gap: 32px; }
+    .nav-links { display: flex; gap: 24px; align-items: center; position: relative; }
     .nav-links a {
       font-weight: 600; font-size: .9rem; color: var(--text-soft);
       transition: color .2s;
@@ -426,29 +438,44 @@
       transition: all .3s;
     }
     .nav-mobile {
-      display: none;
+      display: flex;
+      visibility: hidden;
       flex-direction: column;
-      background: rgba(253,240,245,.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--blue3);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--blue3);
+      border-radius: var(--radius-lg);
       position: fixed;
-      top: 64px;
-      left: 0; right: 0;
+      top: 80px;
+      left: 16px; right: 16px;
       z-index: 99;
-      padding: 16px 24px;
-      gap: 0;
+      padding: 16px 20px;
+      gap: 4px;
+      box-shadow: 0 12px 36px rgba(220,100,130,0.15);
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s;
+      pointer-events: none;
+    }
+    .nav-mobile.open {
+      visibility: visible;
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
     }
     .nav-mobile a {
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-soft);
-      padding: 14px 0;
-      border-bottom: 1px solid var(--blue3);
-      transition: color .2s;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      transition: color .2s, background-color .2s;
     }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--blue4); }
-    .nav-mobile.open { display: flex; }
+    .nav-mobile a:hover, .nav-mobile a.active {
+      color: var(--blue4);
+      background-color: var(--blue3);
+    }
     @media (max-width: 768px) {
       .nav-hamburger { display: flex; }
     }
@@ -851,6 +878,43 @@
         padding: 12px;
       }
     }
+
+    /* ══════════════════════════════════════
+       SCROLL REVEAL ANIMATIONS
+       ══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Grid cards starting state for stagger reveal */
+    .reveal-grid .project-card,
+    .reveal-grid .project-card-featured,
+    .reveal-grid .asset-card,
+    .reveal-grid .audio-card {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease,
+                  transform 0.3s ease; /* Maintain existing hover shadow & lift transition */
+      will-change: transform, opacity;
+    }
+    
+    .reveal-grid .project-card.revealed,
+    .reveal-grid .project-card-featured.revealed,
+    .reveal-grid .asset-card.revealed,
+    .reveal-grid .audio-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -907,15 +971,15 @@
 <!-- ════ ABOUT ════ -->
 <section class="section" id="about">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>About Me</h2>
       <p>Who I am, what I love, and why I make games</p>
     </div>
     <div class="about-grid">
-      <div class="about-avatar">
+      <div class="about-avatar reveal">
         <img src="image/profile-thanadul-suanma.jpg" alt="Thanadul Suanma" />
       </div>
-      <div class="about-text">
+      <div class="about-text reveal">
         <h3>Thanadul Suanma | Unity Developer</h3>
         <p>
           I'm a 3rd-year Game Design student at SPU who fell down the rabbit hole of Unity and C# and never looked back. I love digging into how games tick — the systems behind the fun, the code that makes a fight feel punchy or a frame rate stay smooth.
@@ -943,16 +1007,16 @@
 <!-- ════ PROJECTS ════ -->
 <section class="section" id="projects" style="background: var(--surface2);">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>My Projects</h2>
       <p>A showcase of games I've developed and tools I've built</p>
     </div>
     
-    <div class="projects-subheading">
+    <div class="projects-subheading reveal">
       <h3>Game Projects</h3>
     </div>
     
-    <div class="projects-grid">
+    <div class="projects-grid reveal-grid">
 
       <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
       <div class="project-card-featured">
@@ -1138,11 +1202,11 @@
     </div>
 
     <!-- Sub-heading: Side Projects -->
-    <div class="projects-subheading" style="margin-top: 64px;">
+    <div class="projects-subheading reveal" style="margin-top: 64px;">
       <h3>Side Projects</h3>
     </div>
 
-    <div class="projects-grid">
+    <div class="projects-grid reveal-grid">
 
       <!-- Finance Tracker -->
       <div class="project-card-featured">
@@ -1183,11 +1247,11 @@
 <!-- ════ GAME ASSETS ════ -->
 <section class="section" id="assets" style="background: var(--bg);">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Game Assets</h2>
       <p>Low-poly 3D models I made in Maya for White Heat</p>
     </div>
-    <div class="assets-grid">
+    <div class="assets-grid reveal-grid">
 
       <div class="asset-card">
         <div class="asset-thumb tilt-card">
@@ -1240,11 +1304,11 @@
 <!-- ════ AUDIO WORK ════ -->
 <section class="section" id="audio" style="background: var(--surface2);">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Audio Work</h2>
       <p>Music and sound I made for my games</p>
     </div>
-    <div class="audio-grid">
+    <div class="audio-grid reveal-grid">
 
       <!-- Group: Music -->
       <div style="grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; margin: 8px 0;">
@@ -1477,7 +1541,7 @@
 <!-- ════ CONTACT ════ -->
 <section class="section" id="contact">
   <div class="container">
-    <div class="contact-box">
+    <div class="contact-box reveal">
       <h2>Contact Me</h2>
       <p>I'm currently looking for an internship where I can actually contribute — not just observe. If you're building something and need a programmer who cares, I'd love to talk.</p>
       <div class="contact-links">
@@ -1865,6 +1929,61 @@
     document.getElementById('navMobile').classList.remove('open');
   }
   document.getElementById('navHamburger').addEventListener('click', toggleMobileMenu);
+
+  /* ══════════════════════════════════════
+     INTERSECTION OBSERVERS (SCROLL REVEAL & ACTIVE NAV)
+     ══════════════════════════════════════ */
+  // 1. Scroll reveal observer
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        // If it's a grid, stagger reveal its children
+        if (entry.target.classList.contains('reveal-grid')) {
+          const cards = entry.target.querySelectorAll('.project-card, .project-card-featured, .asset-card, .audio-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('revealed');
+            }, index * 80); // ultra-smooth 80ms stagger delay
+          });
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.02,
+    rootMargin: '0px 0px -20px 0px' // triggers slightly before elements enter screen
+  });
+
+  // Observe reveal elements and grids
+  document.querySelectorAll('.reveal, .reveal-grid').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // 2. Active nav link highlight observer
+  const activeNavObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        const navLinks = document.querySelectorAll('.nav-links a, .nav-mobile a');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.2, // Triggers when 20% of the section is in viewport
+    rootMargin: '-20% 0px -30% 0px'
+  });
+
+  // Observe all page sections
+  document.querySelectorAll('section[id]').forEach(section => {
+    activeNavObserver.observe(section);
+  });
 </script>
 
 </body>

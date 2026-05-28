@@ -151,25 +151,25 @@
     .projects-subheading {
       text-align: center;
       margin: 48px 0 32px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .projects-subheading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 3px;
+      background: var(--blue1);
+      border-radius: 2px;
     }
     .projects-subheading h3 {
       font-size: clamp(1.2rem, 2.5vw, 1.8rem);
       font-weight: 800;
       color: var(--blue4);
       display: inline-block;
-      position: relative;
-      padding-bottom: 8px;
-    }
-    .projects-subheading h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background: var(--blue1);
-      border-radius: 2px;
     }
 
 

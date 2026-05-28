@@ -38,6 +38,10 @@
       --nav-shadow: 0 8px 32px rgba(220, 100, 130, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
       --mobile-menu-shadow: 0 12px 36px rgba(220,100,130,0.15);
       --lightbox-shadow: 0 24px 60px rgba(220, 100, 130, 0.25);
+
+      /* --- Dynamic Illustration Borders & Glows --- */
+      --img-border: 4px solid var(--blue2);
+      --img-glow: 0 16px 40px rgba(220, 100, 130, 0.2);
     }
 
     :root[data-theme="dark"] {
@@ -64,6 +68,10 @@
       --nav-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       --mobile-menu-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
       --lightbox-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+
+      /* --- Dynamic Illustration Borders & Glows --- */
+      --img-border: 4px solid var(--blue1);
+      --img-glow: 0 0 36px rgba(255, 111, 145, 0.35);
     }
 
     /* --- Buttery-smooth transitions for theme toggles --- */
@@ -227,6 +235,8 @@
       overflow: hidden;
       aspect-ratio: 4/3;
       display: flex; align-items: center; justify-content: center;
+      border: var(--img-border);
+      box-shadow: var(--img-glow);
     }
     .hero-img-card img {
       width: 100%; height: 100%; object-fit: cover;
@@ -287,8 +297,8 @@
       overflow: hidden;
       background: linear-gradient(135deg, var(--blue3), var(--blue2));
       display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--card-shadow);
-      border: 3px solid var(--blue3);
+      box-shadow: var(--img-glow);
+      border: var(--img-border);
       flex-shrink: 0;
     }
     .about-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -472,17 +482,6 @@
       font-size: 1.1rem; /* Slightly larger icon */
     }
     .contact-link:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(100,140,220,.25); }
-
-    /* ══════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════ */
-    footer {
-      text-align: center;
-      padding: 32px;
-      color: var(--text-soft);
-      font-size: .85rem;
-      border-top: 1px solid var(--blue3);
-    }
 
     /* ══════════════════════════════════════
        RESPONSIVE
@@ -1670,9 +1669,6 @@
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Thanadul Suanma</p>
-</footer>
 
 <!-- Fullscreen Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">

@@ -886,7 +886,7 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: var(--lightbox-backdrop-bg);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       transition: opacity 0.3s ease;
     }
     .lightbox-content {
@@ -911,23 +911,23 @@
     .lightbox-close {
       position: absolute;
       top: 16px; right: 16px;
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       border-radius: 50%;
       background: var(--surface2);
-      border: 1px solid var(--blue3);
+      border: 1.5px solid var(--blue3);
       color: var(--blue4);
-      font-size: 1.4rem;
-      font-weight: 300;
+      font-size: 1.1rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       z-index: 20;
-      transition: background 0.2s, transform 0.2s, color 0.2s;
-      line-height: 1;
+      transition: background-color 0.25s, transform 0.25s, color 0.25s, border-color 0.25s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .lightbox-close:hover {
       background: var(--blue1);
       color: #fff;
-      transform: scale(1.05) rotate(90deg);
+      border-color: var(--blue1);
+      transform: scale(1.08) rotate(90deg);
     }
     .lightbox-body {
       display: grid;
@@ -940,10 +940,34 @@
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       position: relative;
+      padding: 24px;
+    }
+    .lightbox-media-blur-bg {
+      position: absolute;
+      top: -10%; left: -10%; right: -10%; bottom: -10%;
+      background-size: cover;
+      background-position: center;
+      filter: blur(28px) brightness(0.7);
+      opacity: 0.65;
+      z-index: 1;
+      pointer-events: none;
+      transition: background-image 0.35s ease;
+    }
+    :root[data-theme="dark"] .lightbox-media-blur-bg {
+      filter: blur(28px) brightness(0.5);
+      opacity: 0.6;
     }
     .lightbox-media img {
-      width: 100%; height: 100%; object-fit: cover;
-      transform: scale(1.02); /* Hides edge artifacts or baked-in borders */
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-height: 480px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+      border-radius: var(--radius-md);
+      transition: transform 0.3s ease;
+      background: rgba(0,0,0,0.05);
     }
     .lightbox-details {
       padding: 36px;
@@ -975,6 +999,37 @@
     .lightbox-description p {
       margin-bottom: 12px;
     }
+    
+    /* --- Categorized Premium Tech Tags --- */
+    .tag-engine {
+      background: rgba(232, 130, 154, 0.15) !important;
+      color: var(--blue1) !important;
+      border: 1px solid rgba(232, 130, 154, 0.4) !important;
+    }
+    .tag-lang {
+      background: rgba(100, 140, 220, 0.12) !important;
+      color: #648cdc !important;
+      border: 1px solid rgba(100, 140, 220, 0.3) !important;
+    }
+    :root[data-theme="dark"] .tag-lang {
+      color: #9cbaff !important;
+      border-color: rgba(156, 186, 255, 0.4) !important;
+    }
+    .tag-art {
+      background: rgba(155, 89, 182, 0.12) !important;
+      color: #9b59b6 !important;
+      border: 1px solid rgba(155, 89, 182, 0.3) !important;
+    }
+    :root[data-theme="dark"] .tag-art {
+      color: #d7aef3 !important;
+      border-color: rgba(215, 174, 243, 0.4) !important;
+    }
+    .tag-system {
+      background: var(--blue3) !important;
+      color: var(--blue4) !important;
+      border: 1px solid var(--blue2) !important;
+    }
+
     .lightbox-meta {
       margin-top: 20px;
       padding-top: 16px;
@@ -1717,9 +1772,10 @@
 <div class="lightbox-modal" id="lightboxModal">
   <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
   <div class="lightbox-content">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer">&times;</button>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer"><i class="fa-solid fa-xmark"></i></button>
     <div class="lightbox-body">
       <div class="lightbox-media">
+        <div class="lightbox-media-blur-bg" id="lightboxBlurBg"></div>
         <img id="lightboxImg" src="" alt="Asset Preview" />
       </div>
       <div class="lightbox-details">
@@ -1988,7 +2044,7 @@
     const img = card.querySelector('img').src;
     const title = card.querySelector('h3').textContent;
     const category = card.querySelector('.project-thumb-label')?.textContent || (type === 'project' ? 'Game Project' : '3D Art Asset');
-    const desc = card.querySelector('p').textContent;
+    const desc = card.querySelector('p:not(.project-role)').textContent;
     
     // Technical specs (bullets or extra detail)
     let detailsHtml = `<p>${desc}</p>`;
@@ -2001,9 +2057,26 @@
     const roleEl = card.querySelector('.project-role');
     const roleText = roleEl ? roleEl.textContent : '';
 
-    // Tags
+    // Parsed and Categorized Tags
     const tagsContainer = card.querySelector('.project-tags') || card.querySelector('div[style*="flex-wrap"]');
-    const tagsHtml = tagsContainer ? tagsContainer.innerHTML : '';
+    const tags = Array.from(tagsContainer ? tagsContainer.querySelectorAll('span') : []);
+    let tagsHtml = '';
+    
+    tags.forEach(tag => {
+      const text = tag.textContent.trim();
+      const lower = text.toLowerCase();
+      let categoryClass = 'tag-system';
+      
+      if (['unity', 'vr', 'mobile', 'pc'].includes(lower)) {
+        categoryClass = 'tag-engine';
+      } else if (['c#', 'c++', 'hlsl', 'shaderlab'].includes(lower)) {
+        categoryClass = 'tag-lang';
+      } else if (['maya', 'low-poly', '3d', '2d', 'art'].includes(lower)) {
+        categoryClass = 'tag-art';
+      }
+      
+      tagsHtml += `<span class="tag ${categoryClass}">${text}</span>`;
+    });
 
     // Links
     const linksContainer = card.querySelector('.project-links');
@@ -2011,6 +2084,7 @@
 
     // Populate modal elements
     document.getElementById('lightboxImg').src = img;
+    document.getElementById('lightboxBlurBg').style.backgroundImage = `url('${img}')`;
     document.getElementById('lightboxCategory').textContent = category;
     document.getElementById('lightboxTitle').textContent = title;
     document.getElementById('lightboxDesc').innerHTML = detailsHtml;

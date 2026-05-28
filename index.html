@@ -693,21 +693,7 @@
       object-fit: cover;
     }
 
-    /* --- 3D Parallax Tilt Effects --- */
-    .tilt-card {
-      transform-style: preserve-3d;
-      will-change: transform;
-      position: relative;
-    }
-    .tilt-card-glare {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 10;
-      border-radius: inherit;
-      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
-      transition: background-image 0.1s ease;
-    }
+
 
     /* --- Lightbox Modal --- */
     .lightbox-modal {
@@ -1702,52 +1688,6 @@
     });
   });
 
-  /* ══════════════════════════════════════
-     3D CARD TILT & GLARE EFFECT
-     ══════════════════════════════════════ */
-  const cards = document.querySelectorAll('.tilt-card');
-
-  if (window.innerWidth >= 768) { // disable completely on mobile for gesture/performance sanity
-    cards.forEach(card => {
-      // Create glare overlay element inside card
-      const glare = document.createElement('div');
-      glare.className = 'tilt-card-glare';
-      card.appendChild(glare);
-
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const w = rect.width;
-        const h = rect.height;
-
-        const xc = w / 2;
-        const yc = h / 2;
-
-        const maxTilt = 8; // subtle, highly professional angle
-        const rotateY = ((x - xc) / xc) * maxTilt;
-        const rotateX = ((yc - y) / yc) * maxTilt;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-        // Specify radial-gradient for glare centered on mouse
-        const glareX = (x / w) * 100;
-        const glareY = (y / h) * 100;
-        glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 65%)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-        glare.style.background = 'none';
-        card.style.transition = 'transform 0.5s ease';
-      });
-
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'none';
-      });
-    });
-  }
 
   /* ══════════════════════════════════════
      TECHNICAL SPECS FULLSCREEN LIGHTBOX

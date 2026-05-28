@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     /* ══════════════════════════════════════
-       CSS Variables – Rose Petal Palette
+       CSS Variables – Theme Configuration
     ══════════════════════════════════════ */
     :root {
+      /* --- Light Theme (Rose Petal Palette) --- */
       --bg:        #fdf0f5;
       --surface:   #ffffff;
       --surface2:  #fce8f0;
@@ -25,6 +26,49 @@
       --radius-lg: 24px;
       --radius-md: 16px;
       --radius-sm: 10px;
+
+      /* --- Light Mode Dynamic Transparencies & Shadows --- */
+      --nav-bg: rgba(255, 255, 255, 0.75);
+      --nav-mobile-bg: rgba(255, 255, 255, 0.95);
+      --lightbox-bg: rgba(255, 255, 255, 0.94);
+      --lightbox-backdrop-bg: rgba(74, 45, 53, 0.4);
+      --lightbox-media-bg: linear-gradient(135deg, var(--blue3) 0%, var(--blue2) 100%);
+      --contact-box-bg: linear-gradient(135deg, var(--blue2) 0%, var(--blue3) 100%);
+      --contact-box-border: var(--blue2);
+      --nav-shadow: 0 8px 32px rgba(220, 100, 130, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      --mobile-menu-shadow: 0 12px 36px rgba(220,100,130,0.15);
+      --lightbox-shadow: 0 24px 60px rgba(220, 100, 130, 0.25);
+    }
+
+    :root[data-theme="dark"] {
+      /* --- Dark Theme (Midnight Cherry Theme) --- */
+      --bg:        #120a0d;
+      --surface:   #1c1115;
+      --surface2:  #25171d;
+      --blue1:     #ff6f91;
+      --blue2:     #ff9ebb;
+      --blue3:     #2d1d24;
+      --blue4:     #ffd1dc;
+      --text:      #f5eef0;
+      --text-soft: #b8a1aa;
+      --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+      /* --- Dark Mode Dynamic Transparencies & Shadows --- */
+      --nav-bg: rgba(28, 17, 21, 0.75);
+      --nav-mobile-bg: rgba(28, 17, 21, 0.95);
+      --lightbox-bg: rgba(28, 17, 21, 0.94);
+      --lightbox-backdrop-bg: rgba(18, 10, 13, 0.6);
+      --lightbox-media-bg: linear-gradient(135deg, var(--surface2) 0%, var(--blue3) 100%);
+      --contact-box-bg: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      --contact-box-border: var(--blue3);
+      --nav-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      --mobile-menu-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      --lightbox-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    /* --- Buttery-smooth transitions for theme toggles --- */
+    body, nav, .project-card, .project-card-featured, .asset-card, .audio-card, .contact-box, .lightbox-content {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     /* --- Reset --- */
@@ -74,13 +118,12 @@
       width: calc(100% - 32px);
       max-width: 1000px;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.75);
+      background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1.5px solid var(--blue3);
       border-radius: 999px;
-      box-shadow: 0 8px 32px rgba(220, 100, 130, 0.08), 
-                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      box-shadow: var(--nav-shadow);
       transition: top 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
     nav .container {
@@ -95,10 +138,51 @@
     .nav-logo span { color: var(--blue1); }
     .nav-links { display: flex; gap: 24px; align-items: center; position: relative; }
     .nav-links a {
-      font-weight: 600; font-size: .9rem; color: var(--text-soft);
-      transition: color .2s;
+      font-weight: 700; font-size: .88rem; color: var(--text-soft);
+      transition: color 0.25s ease;
+      position: relative;
+      padding: 6px 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--blue1);
+      border-radius: 2px;
+      transform: translateX(-50%);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .nav-links a:hover { color: var(--blue4); }
+    .nav-links a.active {
+      color: var(--blue4);
+    }
+    .nav-links a.active::after {
+      width: 14px;
+    }
+    .theme-toggle-btn {
+      background: none;
+      border: none;
+      color: var(--blue4);
+      cursor: pointer;
+      font-size: 1.05rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      margin: 0;
+      padding: 0;
+    }
+    .theme-toggle-btn:hover {
+      background-color: var(--blue3);
+      color: var(--blue1);
+      transform: scale(1.05);
+    }
 
     /* ══════════════════════════════════════
        HERO
@@ -365,11 +449,11 @@
        CONTACT
     ══════════════════════════════════════ */
     .contact-box {
-      background: linear-gradient(135deg, var(--blue2) 0%, var(--blue3) 100%);
+      background: var(--contact-box-bg);
       border-radius: var(--radius-lg);
       padding: 56px 48px;
       text-align: center;
-      border: 1.5px solid var(--blue2);
+      border: 1.5px solid var(--contact-box-border);
     }
     .contact-box h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
     .contact-box p { color: var(--text-soft); margin-bottom: 28px; font-size: 1rem; }
@@ -441,7 +525,7 @@
       display: flex;
       visibility: hidden;
       flex-direction: column;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--nav-mobile-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1.5px solid var(--blue3);
@@ -452,7 +536,7 @@
       z-index: 99;
       padding: 16px 20px;
       gap: 4px;
-      box-shadow: 0 12px 36px rgba(220,100,130,0.15);
+      box-shadow: var(--mobile-menu-shadow);
       transform: translateY(-10px);
       opacity: 0;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s;
@@ -764,18 +848,18 @@
     .lightbox-backdrop {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(74, 45, 53, 0.4);
+      background: var(--lightbox-backdrop-bg);
       backdrop-filter: blur(10px);
       transition: opacity 0.3s ease;
     }
     .lightbox-content {
       position: relative;
-      background: rgba(255, 255, 255, 0.94);
+      background: var(--lightbox-bg);
       backdrop-filter: blur(20px);
       border-radius: var(--radius-lg);
       max-width: 900px;
       width: 100%;
-      box-shadow: 0 24px 60px rgba(220, 100, 130, 0.25);
+      box-shadow: var(--lightbox-shadow);
       border: 1.5px solid var(--blue3);
       overflow: hidden;
       z-index: 10;
@@ -815,7 +899,7 @@
       min-height: 440px;
     }
     .lightbox-media {
-      background: linear-gradient(135deg, var(--blue3) 0%, var(--blue2) 100%);
+      background: var(--lightbox-media-bg);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
       position: relative;
@@ -932,9 +1016,14 @@
       <a href="#audio">Audio</a>
       <a href="#contact">Contact</a>
     </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -1984,6 +2073,35 @@
   document.querySelectorAll('section[id]').forEach(section => {
     activeNavObserver.observe(section);
   });
+
+  /* ══════════════════════════════════════
+     THEME TOGGLER (LIGHT / DARK MODE)
+     ══════════════════════════════════════ */
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+
+  // Load saved theme or default to 'dark' (Midnight Cherry)
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeToggleIcon(savedTheme);
+
+  themeToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent background click ripples
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeToggleIcon(newTheme);
+  });
+
+  function updateThemeToggleIcon(theme) {
+    if (theme === 'dark') {
+      themeIcon.className = 'fa-solid fa-sun'; // Show sun icon in dark mode
+    } else {
+      themeIcon.className = 'fa-solid fa-moon'; // Show moon icon in light mode
+    }
+  }
 </script>
 
 </body>

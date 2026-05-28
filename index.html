@@ -148,6 +148,31 @@
     }
     .section-header p { color: var(--text-soft); }
 
+    .projects-subheading {
+      text-align: center;
+      margin: 48px 0 32px;
+    }
+    .projects-subheading h3 {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 800;
+      color: var(--blue4);
+      display: inline-block;
+      position: relative;
+      padding-bottom: 8px;
+    }
+    .projects-subheading h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background: var(--blue1);
+      border-radius: 2px;
+    }
+
+
     /* ══════════════════════════════════════
        ABOUT
     ══════════════════════════════════════ */
@@ -837,7 +862,6 @@
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
-      <a href="#side-projects">Side Projects</a>
       <a href="#assets">Assets</a>
       <a href="#audio">Audio</a>
       <a href="#contact">Contact</a>
@@ -852,7 +876,6 @@
   <a href="#home" onclick="closeMobileMenu()">Home</a>
   <a href="#about" onclick="closeMobileMenu()">About</a>
   <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-  <a href="#side-projects" onclick="closeMobileMenu()">Side Projects</a>
   <a href="#assets" onclick="closeMobileMenu()">Assets</a>
   <a href="#audio" onclick="closeMobileMenu()">Audio</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
@@ -920,8 +943,13 @@
   <div class="container">
     <div class="section-header">
       <h2>My Projects</h2>
-      <p>Games I've built — from solo projects to team collaborations</p>
+      <p>A showcase of games I've developed and tools I've built</p>
     </div>
+    
+    <div class="projects-subheading">
+      <h3>Game Projects</h3>
+    </div>
+    
     <div class="projects-grid">
 
       <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
@@ -1104,16 +1132,12 @@
       </div>
 
     </div>
-  </div>
-</section>
 
-<!-- ════ SIDE PROJECTS ════ -->
-<section class="section" id="side-projects">
-  <div class="container">
-    <div class="section-header">
-      <h2>Side Projects</h2>
-      <p>Things I built outside of game dev — tools I actually use</p>
+    <!-- Sub-heading: Side Projects -->
+    <div class="projects-subheading" style="margin-top: 64px;">
+      <h3>Side Projects</h3>
     </div>
+
     <div class="projects-grid">
 
       <!-- Finance Tracker -->
@@ -1153,7 +1177,7 @@
 </section>
 
 <!-- ════ GAME ASSETS ════ -->
-<section class="section" id="assets" style="background: var(--surface2);">
+<section class="section" id="assets" style="background: var(--bg);">
   <div class="container">
     <div class="section-header">
       <h2>Game Assets</h2>
@@ -1210,7 +1234,7 @@
 </section>
 
 <!-- ════ AUDIO WORK ════ -->
-<section class="section" id="audio" style="background: var(--bg);">
+<section class="section" id="audio" style="background: var(--surface2);">
   <div class="container">
     <div class="section-header">
       <h2>Audio Work</h2>

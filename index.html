@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="I make games in Unity — and I care a lot about making them feel good. Fast, smooth, and fun to play." />
   <title>Thanadul Suanma – Unity Game Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet"/>
   <!-- Add Font Awesome for Icons -->
@@ -1096,6 +1097,48 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ══════════════════════════════════════
+       LANGUAGE SWITCHER STYLES
+       ══════════════════════════════════════ */
+    /* Hide inactive language elements */
+    html[data-lang="en"] .lang-th {
+      display: none !important;
+    }
+    html[data-lang="th"] .lang-en {
+      display: none !important;
+    }
+
+    /* Lang toggle button styles */
+    .lang-toggle-btn {
+      background: none;
+      border: none;
+      color: var(--text-soft);
+      font-family: 'Nunito', 'Prompt', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: background-color 0.25s, color 0.25s, transform 0.25s;
+    }
+    .lang-toggle-btn:hover {
+      background-color: var(--blue3);
+      color: var(--blue4);
+    }
+    .lang-toggle-btn span.lang-option {
+      transition: color 0.25s, font-weight 0.25s;
+    }
+    .lang-toggle-btn span.lang-option.active {
+      color: var(--blue1);
+    }
+    .lang-toggle-btn span.lang-divider {
+      color: var(--blue2);
+      font-weight: 400;
+    }
   </style>
 </head>
 <body>
@@ -1106,14 +1149,19 @@
   <div class="container">
     <div class="nav-logo">My<span> Portfolio</span></div>
     <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#assets">Assets</a>
-      <a href="#audio">Audio</a>
-      <a href="#contact">Contact</a>
+      <a href="#home"><span class="lang-en">Home</span><span class="lang-th">หน้าแรก</span></a>
+      <a href="#about"><span class="lang-en">About</span><span class="lang-th">เกี่ยวกับฉัน</span></a>
+      <a href="#projects"><span class="lang-en">Projects</span><span class="lang-th">โปรเจกต์</span></a>
+      <a href="#assets"><span class="lang-en">Assets</span><span class="lang-th">คลังโมเดล</span></a>
+      <a href="#audio"><span class="lang-en">Audio</span><span class="lang-th">ผลงานเสียง</span></a>
+      <a href="#contact"><span class="lang-en">Contact</span><span class="lang-th">ติดต่อ</span></a>
     </div>
-    <div style="display: flex; align-items: center; gap: 16px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button id="langToggle" class="lang-toggle-btn" aria-label="Switch Language">
+        <span class="lang-option" id="langOptEN">EN</span>
+        <span class="lang-divider">|</span>
+        <span class="lang-option" id="langOptTH">TH</span>
+      </button>
       <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
         <i class="fa-solid fa-sun"></i>
       </button>
@@ -1125,12 +1173,21 @@
 </nav>
 
 <div class="nav-mobile" id="navMobile">
-  <a href="#home" onclick="closeMobileMenu()">Home</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-  <a href="#assets" onclick="closeMobileMenu()">Assets</a>
-  <a href="#audio" onclick="closeMobileMenu()">Audio</a>
-  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="#home" onclick="closeMobileMenu()"><span class="lang-en">Home</span><span class="lang-th">หน้าแรก</span></a>
+  <a href="#about" onclick="closeMobileMenu()"><span class="lang-en">About</span><span class="lang-th">เกี่ยวกับฉัน</span></a>
+  <a href="#projects" onclick="closeMobileMenu()"><span class="lang-en">Projects</span><span class="lang-th">โปรเจกต์</span></a>
+  <a href="#assets" onclick="closeMobileMenu()"><span class="lang-en">Assets</span><span class="lang-th">คลังโมเดล</span></a>
+  <a href="#audio" onclick="closeMobileMenu()"><span class="lang-en">Audio</span><span class="lang-th">ผลงานเสียง</span></a>
+  <a href="#contact" onclick="closeMobileMenu()"><span class="lang-en">Contact</span><span class="lang-th">ติดต่อ</span></a>
+  <div style="padding: 10px 12px; border-top: 1px solid var(--blue3); margin-top: 6px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-soft);" class="lang-en">Language</span>
+    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-soft);" class="lang-th">ภาษา</span>
+    <button id="langToggleMobile" class="lang-toggle-btn" style="padding: 4px 10px;">
+      <span class="lang-option" id="langOptENMobile">EN</span>
+      <span class="lang-divider">|</span>
+      <span class="lang-option" id="langOptTHMobile">TH</span>
+    </button>
+  </div>
 </div>
 
 <!-- ════ HERO ════ -->
@@ -1138,11 +1195,23 @@
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
-        <h1>Hi, I'm<br><span>Thanadul Suanma</span></h1>
-        <p>I make games in Unity — and I care a lot about making them feel good. Fast, smooth, and fun to play.</p>
+        <h1>
+          <span class="lang-en">Hi, I'm<br><span>Thanadul Suanma</span></span>
+          <span class="lang-th">สวัสดีครับ ผมชื่อ<br><span>ธนาดุล สวนมา</span></span>
+        </h1>
+        <p>
+          <span class="lang-en">I make games in Unity — and I care a lot about making them feel good. Fast, smooth, and fun to play.</span>
+          <span class="lang-th">ผมพัฒนาเกมด้วย Unity เป็นหลัก — และผมใส่ใจอย่างมากในการทำให้ตัวเกมรู้สึกดีเมื่อได้เล่น ทั้งความสนุก เป็นมิตรกับผู้เล่น และรองรับสำหรับอุปกรณ์ส่วนใหญ่ในตลาด</span>
+        </p>
         <div class="hero-btns">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-outline">Contact Me</a>
+          <a href="#projects" class="btn btn-primary">
+            <span class="lang-en">View My Work</span>
+            <span class="lang-th">ดูผลงานของผม</span>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <span class="lang-en">Contact Me</span>
+            <span class="lang-th">ติดต่อผม</span>
+          </a>
         </div>
       </div>
 
@@ -1151,7 +1220,10 @@
           <img src="image/hero-artris.png" alt="Hero Game Image" />
         </div>
         <div class="hero-char-badge">
-          <span class="char-name">Artris</span>
+          <span class="char-name">
+            <span class="lang-en">Artris</span>
+            <span class="lang-th">อาร์ทริส</span>
+          </span>
           <span class="char-divider">·</span>
           <span class="char-game">Abyss of Eden</span>
         </div>
@@ -1163,23 +1235,35 @@
 <section class="section" id="about">
   <div class="container">
     <div class="section-header reveal">
-      <h2>About Me</h2>
-      <p>Who I am, what I do, and why I make games</p>
+      <h2>
+        <span class="lang-en">About Me</span>
+        <span class="lang-th">เกี่ยวกับฉัน</span>
+      </h2>
+      <p>
+        <span class="lang-en">Who I am, what I do, and why I make games</span>
+        <span class="lang-th">ตัวตนของผม สิ่งที่ผมทำ และเหตุผลที่ผมพัฒนาเกม</span>
+      </p>
     </div>
     <div class="about-grid">
       <div class="about-avatar reveal">
         <img src="image/profile-thanadul-suanma.jpg" alt="Thanadul Suanma" />
       </div>
       <div class="about-text reveal">
-        <h3>Thanadul Suanma | Unity Developer</h3>
+        <h3>
+          <span class="lang-en">Thanadul Suanma | Unity Developer</span>
+          <span class="lang-th">ธนาดุล สวนมา | นักพัฒนาเกม Unity</span>
+        </h3>
         <p>
-          I'm a 3rd-year Game Design student at SPU who got into Unity and C# early and stuck with it. I like understanding how games work — the systems behind the mechanics, the code that makes a fight feel responsive or a frame rate stay stable.
+          <span class="lang-en">I'm a 3rd-year Game Design student at SPU who got into Unity and C# early and stuck with it. I like understanding how games work — the systems behind the mechanics, the code that makes a fight feel responsive or a frame rate stay stable.</span>
+          <span class="lang-th">ผมเป็นนักศึกษาสาขาการออกแบบเกม (Game Design) ชั้นปีที่ 3 ที่ SPU (มหาวิทยาลัยศรีปทุม) ผู้เริ่มต้นเรียนรู้ Unity และภาษา C# ตั้งแต่เนิ่นๆ และมุ่งมั่นพัฒนาทักษะนี้มาโดยตลอด ผมชอบการทำความเข้าใจกลไกและระบบเบื้องหลังการทำงานของเกม เพื่อเขียนโค้ดให้การต่อสู้รู้สึกตอบสนองได้รวดเร็ว หรือการรักษาเฟรมเรตให้คงที่และเสถียร</span>
         </p>
         <p>
-          Most of my work is on the programming side: gameplay systems, multiplayer netcode, and getting performance where it needs to be. If something's laggy or jank, I want to fix it. That's just who I am.
+          <span class="lang-en">Most of my work is on the programming side: gameplay systems, multiplayer netcode, and getting performance where it needs to be. If something's laggy or jank, I want to fix it. That's just who I am.</span>
+          <span class="lang-th">ผลงานส่วนใหญ่ของผมหนักไปทางงานเขียนโปรแกรม (Programming) เป็นหลัก เช่น ระบบเกมเพลย์ (Gameplay Systems), ระบบเชื่อมต่อผู้เล่นหลายคน (Multiplayer Netcode) และการปรับแต่งประสิทธิภาพ (Optimization) หากระบบมีจุดใดที่ล่าช้าหรือทำงานติดขัด ผมมุ่งมั่นที่จะหาทางแก้ไขมันเสมอ นั่นคือตัวตนในการทำงานของผมครับ</span>
         </p>
         <p>
-          Outside of pure code, I use tools like Antigravity, Gemini CLI, and Claude to work faster — not to skip thinking, just to spend more time on actual problems.
+          <span class="lang-en">Outside of pure code, I use tools like Antigravity, Gemini CLI, and Claude to work faster — not to skip thinking, just to spend more time on actual problems.</span>
+          <span class="lang-th">นอกเหนือจากการเขียนโค้ดแล้ว ผมยังเปิดรับการใช้เครื่องมือ AI เช่น Antigravity, Gemini CLI และ Claude เพื่อช่วยให้พัฒนาเกมได้รวดเร็วขึ้น ซึ่งเป้าหมายไม่ใช่การละทิ้งการคิดวิเคราะห์ด้วยตนเอง แต่ช่วยประหยัดเวลาเพื่อให้สามารถไปโฟกัสการแก้ปัญหาระดับลึกที่แท้จริงได้มากขึ้นครับ</span>
         </p>
         <div class="skill-pills">
           <span class="skill-pill">Unity</span>
@@ -1199,32 +1283,60 @@
 <section class="section" id="projects" style="background: var(--surface2);">
   <div class="container">
     <div class="section-header reveal">
-      <h2>My Projects</h2>
-      <p>A showcase of games I've developed and tools I've built</p>
+      <h2>
+        <span class="lang-en">My Projects</span>
+        <span class="lang-th">โปรเจกต์ของผม</span>
+      </h2>
+      <p>
+        <span class="lang-en">A showcase of games I've developed and tools I've built</span>
+        <span class="lang-th">ผลงานเกมที่ผมได้พัฒนาและเครื่องมือต่างๆ ที่สร้างขึ้น</span>
+      </p>
     </div>
     
     <div class="projects-subheading reveal">
-      <h3>Game Projects</h3>
+      <h3>
+        <span class="lang-en">Game Projects</span>
+        <span class="lang-th">โปรเจกต์เกม</span>
+      </h3>
     </div>
     
     <div class="projects-grid reveal-grid">
-
+ 
       <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
       <div class="project-card-featured">
         <div class="project-thumb tilt-card">
           <img src="image/aoe-cover.png" alt="Abyss of Eden" />
-          <span class="tag project-thumb-label">Dark Fantasy</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">Dark Fantasy</span>
+            <span class="lang-th">ดาร์กแฟนตาซี</span>
+          </span>
         </div>
         <div class="project-body">
-          <div class="featured-badge"><i class="fa-solid fa-star"></i> Featured Project</div>
+          <div class="featured-badge">
+            <i class="fa-solid fa-star"></i> 
+            <span class="lang-en">Featured Project</span>
+            <span class="lang-th">โปรเจกต์เด่น</span>
+          </div>
           <div class="project-header">
             <h3>Abyss of Eden</h3>
-            <p class="project-role">Lead Programmer</p>
+            <p class="project-role">
+              <span class="lang-en">Lead Programmer</span>
+              <span class="lang-th">หัวหน้าฝ่ายเขียนโปรแกรม</span>
+            </p>
           </div>
-          <p>A horde survival game where hundreds of monsters swarm the player at once. My main challenge was keeping the frame rate stable — I spent a lot of time optimizing so performance holds even when a lot is happening on screen.</p>
+          <p>
+            <span class="lang-en">A horde survival game where hundreds of monsters swarm the player at once. My main challenge was keeping the frame rate stable — I spent a lot of time optimizing so performance holds even when a lot is happening on screen.</span>
+            <span class="lang-th">เกมแนวเอาชีวิตรอดจากฝูงมอนสเตอร์นับร้อยที่รุมล้อมผู้เล่นพร้อมกัน ความท้าทายหลักของผมคือการรักษาเฟรมเรตให้เสถียร — ผมใช้เวลาส่วนใหญ่ไปกับการเพิ่มประสิทธิภาพ (Optimization) เพื่อให้เกมลื่นไหลแม้จะมียูนิตแสดงผลบนหน้าจอจำนวนมาก</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Built an object pool managing 300+ simultaneous enemies</li>
-            <li>Used Unity Profiler to hit and hold frame budget targets</li>
+            <li>
+              <span class="lang-en">Built an object pool managing 300+ simultaneous enemies</span>
+              <span class="lang-th">สร้างระบบ Object Pooling เพื่อจัดการมอนสเตอร์พร้อมกันกว่า 300+ ตัว</span>
+            </li>
+            <li>
+              <span class="lang-en">Used Unity Profiler to hit and hold frame budget targets</span>
+              <span class="lang-th">ใช้ Unity Profiler เพื่อตรวจสอบและควบคุมเฟรมเรตให้อยู่ในเป้าหมายที่กำหนด</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1247,18 +1359,38 @@
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/aoe-tsr-cover.png" alt="The Sinners' Requiem" />
-          <span class="tag project-thumb-label">Dark Fantasy</span>
-          <div class="ribbon-wrap"><div class="ribbon">In Dev</div></div>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">Dark Fantasy</span>
+            <span class="lang-th">ดาร์กแฟนตาซี</span>
+          </span>
+          <div class="ribbon-wrap">
+            <div class="ribbon">
+              <span class="lang-en">In Dev</span>
+              <span class="lang-th">กำลังพัฒนา</span>
+            </div>
+          </div>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>Abyss of Eden: The Sinners' Requiem</h3>
-            <p class="project-role">Lead Programmer · Tools & Data Designer</p>
+            <p class="project-role">
+              <span class="lang-en">Lead Programmer · Tools & Data Designer</span>
+              <span class="lang-th">หัวหน้าฝ่ายเขียนโปรแกรม · ออกแบบเครื่องมือและข้อมูลเกม</span>
+            </p>
           </div>
-          <p>The sequel to Abyss of Eden, and my biggest project yet. It's an action-RPG with online co-op — I'm handling the multiplayer backend, making sure player state stays in sync without affecting how the game feels to play.</p>
+          <p>
+            <span class="lang-en">The sequel to Abyss of Eden, and my biggest project yet. It's an action-RPG with online co-op — I'm handling the multiplayer backend, making sure player state stays in sync without affecting how the game feels to play.</span>
+            <span class="lang-th">ภาคต่อของ Abyss of Eden และเป็นโปรเจกต์ที่ใหญ่ที่สุดเท่าที่ผมเคยทำมา ตัวเกมเป็นแนว Action-RPG ที่มีระบบเล่นร่วมกันออนไลน์ (Online Co-op) — ผมรับผิดชอบในส่วนระบบเซิร์ฟเวอร์และเน็ตโค้ด (Multiplayer Backend) เพื่อให้แน่ใจว่าสถานะของผุ้เล่นทุกคนซิงค์ตรงกันอย่างลื่นไหลโดยไม่กระทบต่อฟีลลิ่งการเล่น</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Architecting the multiplayer backend with Unity Netcode for GameObjects (NGO)</li>
-            <li>Building custom Unity Editor tools for data &amp; encounter design</li>
+            <li>
+              <span class="lang-en">Architecting the multiplayer backend with Unity Netcode for GameObjects (NGO)</span>
+              <span class="lang-th">ออกแบบโครงสร้างของระบบผู้เล่นหลายคนโดยใช้ Unity Netcode for GameObjects (NGO)</span>
+            </li>
+            <li>
+              <span class="lang-en">Building custom Unity Editor tools for data &amp; encounter design</span>
+              <span class="lang-th">สร้างเครื่องมือ Custom Tools ใน Unity Editor สำหรับการจัดการข้อมูลและการออกแบบด่าน (Encounter Design)</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1266,7 +1398,6 @@
             <span class="tag">3D</span>
             <span class="tag">Multiplayer</span>
           </div>
-
         </div>
       </div>
 
@@ -1274,19 +1405,40 @@
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/summer-bakery-cover.jpg" alt="Summer Bakery" />
-          <span class="tag project-thumb-label">2D RPG</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">2D RPG</span>
+            <span class="lang-th">2D RPG</span>
+          </span>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>Summer Bakery</h3>
-            <p class="project-role">Game Designer · Programmer · Music&nbsp;Composer</p>
+            <p class="project-role">
+              <span class="lang-en">Game Designer · Programmer · Music Composer</span>
+              <span class="lang-th">ออกแบบเกม · เขียนโปรแกรม · ประพันธ์เพลงประกอบ</span>
+            </p>
           </div>
-          <p>A cozy 2D game where you run a bakery and serve customers. I designed it, programmed it, and wrote the music. The more you get orders right, the closer you get to the characters — each day ends with a little CG scene.</p>
+          <p>
+            <span class="lang-en">A cozy 2D game where you run a bakery and serve customers. I designed it, programmed it, and wrote the music. The more you get orders right, the closer you get to the characters — each day ends with a little CG scene.</span>
+            <span class="lang-th">เกม 2D สบายๆ ที่คุณจะได้รับบทเป็นเจ้าของร้านเบเกอรี่และคอยบริการลูกค้า ผมออกแบบเกมนี้ เขียนโปรแกรมเอง และแต่งเพลงประกอบทั้งหมด ยิ่งคุณทำออเดอร์ได้ถูกต้องมากเท่าไหร่ คุณก็จะสนิทกับตัวละครต่างๆ มากขึ้นเท่านั้น — ทุกๆ สิ้นวันจะมีฉาก CG สวยๆ ให้ชม</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Built an NPC relationship system with progressive story unlocks</li>
-            <li>Wrote a procedural order generator for randomized customer requests</li>
-            <li>Composed original BGM and wired it into game state transitions</li>
-            <li>Implemented a save/load system for persistent progress</li>
+            <li>
+              <span class="lang-en">Built an NPC relationship system with progressive story unlocks</span>
+              <span class="lang-th">สร้างระบบความสัมพันธ์ NPC พร้อมการปลดล็อกเนื้อเรื่องตามระดับความสนิท</span>
+            </li>
+            <li>
+              <span class="lang-en">Wrote a procedural order generator for randomized customer requests</span>
+              <span class="lang-th">เขียนระบบสุ่มออเดอร์ลูกค้าแบบกึ่งสุ่ม (Procedural order generator)</span>
+            </li>
+            <li>
+              <span class="lang-en">Composed original BGM and wired it into game state transitions</span>
+              <span class="lang-th">ประพันธ์ BGM ออริจินอล และเชื่อมต่อเข้ากับระบบการเปลี่ยนสถานะของเกม (Game States)</span>
+            </li>
+            <li>
+              <span class="lang-en">Implemented a save/load system for persistent progress</span>
+              <span class="lang-th">พัฒนาระบบบันทึกข้อมูล (Save/Load system) เพื่อเก็บความคืบหน้าการเล่น</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1306,19 +1458,40 @@
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/white-heat-cover.jpg" alt="White Heat" />
-          <span class="tag project-thumb-label">3D Tactical</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">3D Tactical</span>
+            <span class="lang-th">3D แทคติคอล</span>
+          </span>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>White Heat</h3>
-            <p class="project-role">Game Designer · Lead Programmer</p>
+            <p class="project-role">
+              <span class="lang-en">Game Designer · Lead Programmer</span>
+              <span class="lang-th">ออกแบบเกม · หัวหน้าฝ่ายเขียนโปรแกรม</span>
+            </p>
           </div>
-          <p>A top-down tactical game I led the programming on. Units use AI to navigate and react, you can hide in cover, and bullets actually travel — not instant hits.</p>
+          <p>
+            <span class="lang-en">A top-down tactical game I led the programming on. Units use AI to navigate and react, you can hide in cover, and bullets actually travel — not instant hits.</span>
+            <span class="lang-th">เกมแนววางแผนยุทธวิธีมุมมองด้านบน (Top-down Tactical) ที่ผมรับหน้าที่เป็นหัวหน้าฝ่ายโปรแกรมเมอร์ ยูนิตใช้ AI ในการเคลื่อนที่และตอบสนอง สามารถหลบหลังที่กำบังได้ และกระสุนปืนจะมีวิถีกระสุนเดินทางจริง ไม่ใช่การโจมตีแบบทันที (Hitscan)</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Built a projectile physics system with real travel time &amp; ballistics</li>
-            <li>Implemented NavMesh pathfinding with custom steering behavior for unit AI</li>
-            <li>Designed a dynamic cover system with raycast-based line-of-sight (LOS)</li>
-            <li>Modeled all 3D combat vehicles (MBT, IFV, FPV Drone, TOS-2 Artillery) in Maya</li>
+            <li>
+              <span class="lang-en">Built a projectile physics system with real travel time &amp; ballistics</span>
+              <span class="lang-th">พัฒนาระบบฟิสิกส์สำหรับกระสุน (Projectile system) ที่มีวิถีโค้งและใช้เวลาเดินทางจริง</span>
+            </li>
+            <li>
+              <span class="lang-en">Implemented NavMesh pathfinding with custom steering behavior for unit AI</span>
+              <span class="lang-th">ใช้ระบบนำทาง NavMesh ร่วมกับพฤติกรรมการเคลื่อนที่แบบปรับแต่งเอง (Custom Steering) สำหรับ AI ของยูนิต</span>
+            </li>
+            <li>
+              <span class="lang-en">Designed a dynamic cover system with raycast-based line-of-sight (LOS)</span>
+              <span class="lang-th">ออกแบบระบบที่กำบังแบบไดนามิก โดยใช้ Raycast ในการคำนวณมุมมองสายตา (Line-of-sight)</span>
+            </li>
+            <li>
+              <span class="lang-en">Modeled all 3D combat vehicles (MBT, IFV, FPV Drone, TOS-2 Artillery) in Maya</span>
+              <span class="lang-th">ปั้นโมเดล 3D ของยานพาหนะรบทั้งหมด (MBT, IFV, FPV Drone, TOS-2 Artillery) ด้วยโปรแกรม Maya</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1338,18 +1511,36 @@
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/zeta-zero-cover.jpg" alt="Zeta Zero" />
-          <span class="tag project-thumb-label">Survival</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">Survival</span>
+            <span class="lang-th">เอาชีวิตรอด</span>
+          </span>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>Zeta Zero</h3>
-            <p class="project-role">Solo Developer</p>
+            <p class="project-role">
+              <span class="lang-en">Solo Developer</span>
+              <span class="lang-th">นักพัฒนาเดี่ยว</span>
+            </p>
           </div>
-          <p>A solo survival game I made from scratch. Monsters detect you by sight and sound, you manage weapons and ammo, and death has a real penalty. I built all the systems myself to practice designing game systems on my own.</p>
+          <p>
+            <span class="lang-en">A solo survival game I made from scratch. Monsters detect you by sight and sound, you manage weapons and ammo, and death has a real penalty. I built all the systems myself to practice designing game systems on my own.</span>
+            <span class="lang-th">เกมเอาชีวิตรอดที่ผมพัฒนาขึ้นคนเดียวจากศูนย์ มอนสเตอร์สามารถตรวจจับผู้เล่นได้จากสายตาและการยินเสียง ผู้เล่นต้องคอยบริหารจัดการอาวุธและกระสุนปืน และการตายจะมีบทลงโทษจริง ผมสร้างระบบทั้งหมดด้วยตัวเองเพื่อฝึกฝนการออกแบบระบบเกมในทุกส่วน</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Built sight &amp; sound detection AI with a dynamic noise radius per weapon</li>
-            <li>Implemented NavMesh pathfinding with chase &amp; patrol state machines</li>
-            <li>Wrote a weapon spread system where accuracy shifts with stance &amp; movement</li>
+            <li>
+              <span class="lang-en">Built sight &amp; sound detection AI with a dynamic noise radius per weapon</span>
+              <span class="lang-th">สร้าง AI ตรวจจับด้วยการมองเห็นและเสียง พร้อมคำนวณรัศมีความดังของเสียงตามประเภทอาวุธที่ต่างกัน</span>
+            </li>
+            <li>
+              <span class="lang-en">Implemented NavMesh pathfinding with chase &amp; patrol state machines</span>
+              <span class="lang-th">พัฒนาระบบนำทาง NavMesh ควบคู่กับ State Machine ในการลาดตระเวนและไล่ล่าของศัตรู</span>
+            </li>
+            <li>
+              <span class="lang-en">Wrote a weapon spread system where accuracy shifts with stance &amp; movement</span>
+              <span class="lang-th">เขียนระบบกระจายของกระสุน (Weapon spread) ที่ความแม่นยำจะเปลี่ยนไปตามท่าทางและการเคลื่อนไหว</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1369,16 +1560,28 @@
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/core-control-cover.png" alt="Core Control" />
-          <span class="tag project-thumb-label">VR</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">VR</span>
+            <span class="lang-th">VR</span>
+          </span>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>Core Control</h3>
-            <p class="project-role">Solo Developer</p>
+            <p class="project-role">
+              <span class="lang-en">Solo Developer</span>
+              <span class="lang-th">นักพัฒนาเดี่ยว</span>
+            </p>
           </div>
-          <p>A VR game where you're in charge of a nuclear reactor — pulling levers, managing systems, trying not to cause a meltdown. I built it solo and it taught me a lot about interaction design in physical space.</p>
+          <p>
+            <span class="lang-en">A VR game where you're in charge of a nuclear reactor — pulling levers, managing systems, trying not to cause a meltdown. I built it solo and it taught me a lot about interaction design in physical space.</span>
+            <span class="lang-th">เกม VR ที่คุณต้องรับบทควบคุมเตาปฏิกรณ์นิวเคลียร์ — ดึงคันโยก จัดการระบบ และคอยระวังไม่ให้เกิดการหลอมละลายของแกนปฏิกรณ์ (Meltdown) ผมสร้างโปรเจกต์นี้คนเดียวและมันทำให้ผมได้เรียนรู้อย่างมากเกี่ยวกับการออกแบบปฏิสัมพันธ์ (Interaction Design) ในพื้นที่ 3 มิติ</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Built a VR interaction system for physical levers, buttons, and sliders</li>
+            <li>
+              <span class="lang-en">Built a VR interaction system for physical levers, buttons, and sliders</span>
+              <span class="lang-th">พัฒนาระบบปฏิสัมพันธ์ใน VR สำหรับคันโยก, ปุ่มกด และสไลเดอร์ที่ตอบสนองทางกายภาพจริง</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">Unity</span>
@@ -1386,7 +1589,6 @@
             <span class="tag">3D</span>
             <span class="tag">VR</span>
           </div>
-          <!-- ข้าม: ไม่มีปุ่ม YouTube -->
         </div>
       </div>
 
@@ -1394,7 +1596,10 @@
 
     <!-- Sub-heading: Side Projects -->
     <div class="projects-subheading reveal" style="margin-top: 64px;">
-      <h3>Side Projects</h3>
+      <h3>
+        <span class="lang-en">Side Projects</span>
+        <span class="lang-th">โปรเจกต์เสริม</span>
+      </h3>
     </div>
 
     <div class="projects-grid reveal-grid">
@@ -1403,19 +1608,40 @@
       <div class="project-card-featured">
         <div class="project-thumb tilt-card">
           <img src="image/finance-tracker-cover.png" alt="Finance Tracker" />
-          <span class="tag project-thumb-label">Web App</span>
+          <span class="tag project-thumb-label">
+            <span class="lang-en">Web App</span>
+            <span class="lang-th">เว็บแอป</span>
+          </span>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3>Finance Tracker</h3>
-            <p class="project-role">Solo Developer · UX Designer</p>
+            <p class="project-role">
+              <span class="lang-en">Solo Developer · UX Designer</span>
+              <span class="lang-th">นักพัฒนาเดี่ยว · ออกแบบ UX</span>
+            </p>
           </div>
-          <p>A personal finance dashboard I built and use every day. It tracks transactions across THB and USD, monitors my stock portfolio with near-real-time prices, and calculates actual profit after exchange rate changes — not just the raw balance.</p>
+          <p>
+            <span class="lang-en">A personal finance dashboard I built and use every day. It tracks transactions across THB and USD, monitors my stock portfolio with near-real-time prices, and calculates actual profit after exchange rate changes — not just the raw balance.</span>
+            <span class="lang-th">แดชบอร์ดบริหารการเงินส่วนตัวที่ผมสร้างขึ้นและใช้งานจริงในทุกๆ วัน สามารถติดตามธุรกรรมทั้งสกุลเงิน THB และ USD ติดตามพอร์ตหุ้นด้วยราคาแบบเกือบเรียลไทม์ และคำนวณกำไรจริงหลังหักผลกระทบจากอัตราแลกเปลี่ยน — ไม่ใช่แค่แสดงยอดเงินคงเหลือดิบๆ เท่านั้น</span>
+          </p>
           <ul class="project-tech-list">
-            <li>Integrated real-time stock prices with exchange rate correction</li>
-            <li>Synced data to Google Drive for cloud-based persistence</li>
-            <li>Built a monthly budget tracker with a safe-to-spend calculator</li>
-            <li>Displays THB / USD dual-currency net worth side by side</li>
+            <li>
+              <span class="lang-en">Integrated real-time stock prices with exchange rate correction</span>
+              <span class="lang-th">เชื่อมต่อราคาหุ้นแบบเรียลไทม์พร้อมระบบคำนวณอัตราแลกเปลี่ยนที่ถูกต้อง</span>
+            </li>
+            <li>
+              <span class="lang-en">Synced data to Google Drive for cloud-based persistence</span>
+              <span class="lang-th">ซิงก์ข้อมูลทางการเงินกับ Google Drive เพื่อเก็บข้อมูลอย่างปลอดภัยบนคลาวด์</span>
+            </li>
+            <li>
+              <span class="lang-en">Built a monthly budget tracker with a safe-to-spend calculator</span>
+              <span class="lang-th">สร้างระบบติดตามงบประมาณรายเดือนพร้อมเครื่องมือคำนวณยอดเงินที่สามารถใช้ได้อย่างปลอดภัย</span>
+            </li>
+            <li>
+              <span class="lang-en">Displays THB / USD dual-currency net worth side by side</span>
+              <span class="lang-th">แสดงมูลค่าสินทรัพย์สุทธิ (Net worth) แบบสองสกุลเงินคู่กัน THB / USD</span>
+            </li>
           </ul>
           <div class="project-tags">
             <span class="tag">HTML</span>
@@ -1425,7 +1651,9 @@
           </div>
           <div class="project-links">
             <a href="https://n3phy-finance.netlify.app/" target="_blank" class="project-link-btn">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live App
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> 
+              <span class="lang-en">Live App</span>
+              <span class="lang-th">ลิงก์ใช้งานจริง</span>
             </a>
           </div>
         </div>
@@ -1439,8 +1667,14 @@
 <section class="section" id="assets" style="background: var(--bg);">
   <div class="container">
     <div class="section-header reveal">
-      <h2>Game Assets</h2>
-      <p>Low-poly 3D models I made in Maya for my game projects</p>
+      <h2>
+        <span class="lang-en">Game Assets</span>
+        <span class="lang-th">คลังโมเดลเกม</span>
+      </h2>
+      <p>
+        <span class="lang-en">Low-poly 3D models I made in Maya for my game projects</span>
+        <span class="lang-th">โมเดล 3D สไตล์ Low-poly ที่ผมปั้นใน Maya สำหรับโปรเจกต์เกมต่างๆ</span>
+      </p>
     </div>
     <div class="assets-grid reveal-grid">
 
@@ -1449,8 +1683,14 @@
           <img src="image/model-controller.png" alt="Control Console" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Control Console</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">Control Console</span>
+            <span class="lang-th">คอนโซลควบคุม</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</span>
+            <span class="lang-th">อินเทอร์เฟซควบคุมหลักในระบบ VR ของเกม Core Control ออกแบบให้มีคันโยก สไลเดอร์ และหน้าปัดต่างๆ ที่สามารถเอื้อมมือจับควบคุมได้จริง</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1460,8 +1700,14 @@
           <img src="image/model-turbine.png" alt="Reactor Turbine" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Reactor Turbine</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">A heavy generator unit for Core Control. Sits in the background of the reactor room as a big rotating machine — mostly there to make the space feel real.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">Reactor Turbine</span>
+            <span class="lang-th">เทอร์ไบน์เตาปฏิกรณ์</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">A heavy generator unit for Core Control. Sits in the background of the reactor room as a big rotating machine — mostly there to make the space feel real.</span>
+            <span class="lang-th">เครื่องกำเนิดไฟฟ้าเตาปฏิกรณ์นิวเคลียร์สำหรับเกม Core Control ติดตั้งประดับเป็นฉากหลังและหมุนอยู่ตลอดเวลาเพื่อช่วยเสริมสร้างบรรยากาศให้ดูสมจริง</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1471,8 +1717,14 @@
           <img src="image/model-rocket.png" alt="Rocket Artillery" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Rocket Artillery</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">Rocket Artillery</span>
+            <span class="lang-th">รถเครื่องยิงจรวด</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</span>
+            <span class="lang-th">ได้รับแรงบันดาลใจจากระบบจรวดเทอร์โมบาริก TOS-2 Tosochka โดยดัดแปลงติดตั้งบนตัวถังรถรบ Bradley เพื่อการเคลื่อนกำลังพลและโจมตีที่รวดเร็ว</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1482,8 +1734,14 @@
           <img src="image/model-fpv.png" alt="FPV Drone" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">FPV Drone</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Based on FPV drones from the Russia-Ukraine war — cheap, fast, and surprisingly good at killing tanks.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">FPV Drone</span>
+            <span class="lang-th">โดรน FPV</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">Based on FPV drones from the Russia-Ukraine war — cheap, fast, and surprisingly good at killing tanks.</span>
+            <span class="lang-th">จำลองจากโดรนติดกล้อง FPV ในสงครามยูเครน-รัสเซีย — ราคาประหยัด เคลื่อนที่เร็ว และมีประสิทธิภาพสูงในการต่อต้านรถถัง</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1493,8 +1751,14 @@
           <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Infantry Fighting Vehicle</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">Infantry Fighting Vehicle</span>
+            <span class="lang-th">รถรบหุ้มเกราะ IFV</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</span>
+            <span class="lang-th">ได้รับแรงบันดาลใจจากรถรบ M2 Bradley ดัดแปลงมาเป็นยานพาหนะลำเลียงพลหลักและสนับสนุนการยิงแนวหน้าในเกม</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1504,8 +1768,14 @@
           <img src="image/model-mbt.png" alt="Main Battle Tank" />
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Main Battle Tank</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Based on the T-84 Oplot. The game's heaviest unit — slow, but hits hard.</p>
+          <h3 style="font-size: 1rem; font-weight: 800;">
+            <span class="lang-en">Main Battle Tank</span>
+            <span class="lang-th">รถถังหลัก MBT</span>
+          </h3>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">
+            <span class="lang-en">Based on the T-84 Oplot. The game's heaviest unit — slow, but hits hard.</span>
+            <span class="lang-th">จำลองรูปแบบจากรถถัง T-84 Oplot เป็นยูนิตรบหุ้มเกราะที่หนักที่สุดในเกม เคลื่อนตัวช้าแต่มีพลังโจมตีรุนแรง</span>
+          </p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1518,15 +1788,24 @@
 <section class="section" id="audio" style="background: var(--surface2);">
   <div class="container">
     <div class="section-header reveal">
-      <h2>Audio Work</h2>
-      <p>Music and sound I made for my games</p>
+      <h2>
+        <span class="lang-en">Audio Work</span>
+        <span class="lang-th">ผลงานด้านเสียง</span>
+      </h2>
+      <p>
+        <span class="lang-en">Music and sound I made for my games</span>
+        <span class="lang-th">ผลงานเพลงประกอบและเสียงเอฟเฟกต์ที่ผมรังสรรค์และแต่งขึ้นเองสำหรับเกมต่างๆ</span>
+      </p>
     </div>
     <div class="audio-grid reveal-grid">
 
       <!-- Group: Music -->
       <div style="grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; margin: 8px 0;">
         <div style="flex: 1; height: 1px; background: var(--blue2);"></div>
-        <span style="font-size: .8rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">Music</span>
+        <span style="font-size: .8rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">
+          <span class="lang-en">Music</span>
+          <span class="lang-th">เพลงประกอบ</span>
+        </span>
         <div style="flex: 1; height: 1px; background: var(--blue2);"></div>
       </div>
 
@@ -1534,8 +1813,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Summer Bakery — BGM</h4>
-          <p>The BGM for Summer Bakery. I wanted it to sound relaxed — like background music in a small shop. It ended up as a trap beat, which is just what came out when I started producing it.</p>
+          <h4>
+            <span class="lang-en">Summer Bakery — BGM</span>
+            <span class="lang-th">Summer Bakery — เพลงประกอบ (BGM)</span>
+          </h4>
+          <p>
+            <span class="lang-en">The BGM for Summer Bakery. I wanted it to sound relaxed — like background music in a small shop. It ended up as a trap beat, which is just what came out when I started producing it.</span>
+            <span class="lang-th">เพลงประกอบเบื้องหลังสำหรับร้าน Summer Bakery ผมต้องการให้เพลงฟังดูผ่อนคลายสบายๆ — เหมือนเปิดคลอในร้านขนมปังเล็กๆ แต่ผลลัพธ์ออกมาเป็นเพลงสไตล์ Trap beat ซึ่งแต่งออกมาลื่นไหลพอดีครับ</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Summer Bakery</span>
             <span class="skill-pill audio-type-pill">BGM</span>
@@ -1564,8 +1849,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Flagellant — Chase Theme</h4>
-          <p>Chase music for a horror game concept. It's Frenchcore — fast, distorted, and at a high BPM. I wanted it to feel like you're being chased and can't outrun it.</p>
+          <h4>
+            <span class="lang-en">Flagellant — Chase Theme</span>
+            <span class="lang-th">Flagellant — เพลงประกอบฉากไล่ล่า</span>
+          </h4>
+          <p>
+            <span class="lang-en">Chase music for a horror game concept. It's Frenchcore — fast, distorted, and at a high BPM. I wanted it to feel like you're being chased and can't outrun it.</span>
+            <span class="lang-th">เพลงประกอบฉากไล่ล่าสำหรับคอนเซปต์เกมสยองขวัญ แต่งในสไตล์ Frenchcore — มีความเร็ว ดิบ แตกพร่า และจังหวะ BPM ที่สูงมาก เพื่อสื่อถึงความตื่นตระหนกเสมือนกำลังถูกตามล่าอย่างไม่ลดละ</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Love's Last Lesson</span>
             <span class="skill-pill audio-type-pill">BGM</span>
@@ -1593,7 +1884,10 @@
       <!-- Group: SFX & Voice -->
       <div style="grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; margin: 8px 0;">
         <div style="flex: 1; height: 1px; background: var(--blue2);"></div>
-        <span style="font-size: .8rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">SFX & Voice</span>
+        <span style="font-size: .8rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">
+          <span class="lang-en">SFX & Voice</span>
+          <span class="lang-th">เอฟเฟกต์เสียงและเสียงพากย์</span>
+        </span>
         <div style="flex: 1; height: 1px; background: var(--blue2);"></div>
       </div>
 
@@ -1601,8 +1895,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Battle Start</h4>
-          <p>The sound that plays when a wave starts in Abyss of Eden. I layered a bell, a drone, and some heavy strings to signal that the next wave is beginning.</p>
+          <h4>
+            <span class="lang-en">Battle Start</span>
+            <span class="lang-th">เริ่มการต่อสู้ (Battle Start)</span>
+          </h4>
+          <p>
+            <span class="lang-en">The sound that plays when a wave starts in Abyss of Eden. I layered a bell, a drone, and some heavy strings to signal that the next wave is beginning.</span>
+            <span class="lang-th">เสียงแจ้งเตือนเริ่มเวฟใหม่ในเกม Abyss of Eden โดยผมทำการซ้อนเสียง (Layering) ระฆัง เสียงสัญญาณหึ่งต่ำ (Drone) และเครื่องสายที่หนักหน่วงเข้าด้วยกัน เพื่อกระตุ้นความตื่นเต้นเตือนว่าศัตรูระลอกถัดไปได้เริ่มบุกแล้ว</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1631,8 +1931,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Death Silent (Ultimate SFX)</h4>
-          <p>The SFX for Death Silent — an ultimate that freezes time. I used ticking clocks, reverse swells, and heavy compression to match the ability's effect. The panning sweeps left to right to reinforce the time-stop feeling.</p>
+          <h4>
+            <span class="lang-en">Death Silent (Ultimate SFX)</span>
+            <span class="lang-th">Death Silent (เสียงเอฟเฟกต์อัลติเมท)</span>
+          </h4>
+          <p>
+            <span class="lang-en">The SFX for Death Silent — an ultimate that freezes time. I used ticking clocks, reverse swells, and heavy compression to match the ability's effect. The panning sweeps left to right to reinforce the time-stop feeling.</span>
+            <span class="lang-th">เสียงเอฟเฟกต์ของสกิลอัลติเมท Death Silent ที่หยุดเวลาชั่วขณะ ผมเลือกใช้เสียงเข็มนาฬิกาเดิน เสียงบวมย้อนกลับ (Reverse swell) และการบีบอัดเสียงหนาๆ เพื่อสื่อถึงภาวะหยุดนิ่ง พร้อมทำระบบเสียงแพนซ้ายขวาเพิ่มความสมจริง</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1661,8 +1967,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Death Screen Ambient</h4>
-          <p>What plays when you die. I wanted it to sound off — not like normal music. It's a detuned melody over a dark drone, with distortion turned up until it's uncomfortable to listen to.</p>
+          <h4>
+            <span class="lang-en">Death Screen Ambient</span>
+            <span class="lang-th">เสียงบรรยากาศหน้าจอเสียชีวิต (Death Screen)</span>
+          </h4>
+          <p>
+            <span class="lang-en">What plays when you die. I wanted it to sound off — not like normal music. It's a detuned melody over a dark drone, with distortion turned up until it's uncomfortable to listen to.</span>
+            <span class="lang-th">เสียงแอมเบียนต์ที่จะเล่นหลังจากผู้เล่นเสียชีวิต ผมต้องการให้มันมีฟีลลิ่งหลอนและแปลกประหลาดกว่าเพลงปกติ โดยคีย์ตัวโน้ตจะมีความเพี้ยนเสียงต่ำ (Detuned) คลอไปกับเสียงโดรนดำมืด และเร่งระดับเสียงแตกพร่าให้ชวนกดดันอึดอัด</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1691,8 +2003,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Moon Slash (Ultimate SFX)</h4>
-          <p>The SFX for Moon Slash — a big, sweeping sword ultimate. I built it from sword swings and metal impacts, then added heavy reverb. The reverb tail is wide and distorted so the attack has a long decay.</p>
+          <h4>
+            <span class="lang-en">Moon Slash (Ultimate SFX)</span>
+            <span class="lang-th">Moon Slash (เสียงเอฟเฟกต์อัลติเมท)</span>
+          </h4>
+          <p>
+            <span class="lang-en">The SFX for Moon Slash — a big, sweeping sword ultimate. I built it from sword swings and metal impacts, then added heavy reverb. The reverb tail is wide and distorted so the attack has a long decay.</span>
+            <span class="lang-th">เสียงเอฟเฟกต์สำหรับสกิลดาบใหญ่ Moon Slash ผมสร้างมันขึ้นจากเสียงเหวี่ยงดาบจริงและเสียงโลหะปะทะกัน จากนั้นเติมรีเวิร์บ (Reverb) ที่มีความกว้างและแตกพร่า ทำให้เสียงแผ่กระจายเป็นวงกว้างสมกับความทรงพลัง</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1721,8 +2039,14 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Ultimate Voice Lines</h4>
-          <p>Voice lines for the game's ultimates, generated with VOICEVOX and then processed. I added saturation, compression, and heavy reverb to make them sound louder and heavier than normal voice lines.</p>
+          <h4>
+            <span class="lang-en">Ultimate Voice Lines</span>
+            <span class="lang-th">เสียงพากย์สกิลอัลติเมท</span>
+          </h4>
+          <p>
+            <span class="lang-en">Voice lines for the game's ultimates, generated with VOICEVOX and then processed. I added saturation, compression, and heavy reverb to make them sound louder and heavier than normal voice lines.</span>
+            <span class="lang-th">เสียงพากย์สำหรับสกิลอัลติเมทต่างๆ ในเกม โดยสร้างเสียงจาก VOICEVOX แล้วนำมาผ่านโปรเซสเติมความอิ่มตัว (Saturation) บีบอัด และรีเวิร์บเสียงหนักๆ เพื่อให้ได้เสียงที่ทรงพลังและเด่นกว่าเสียงพากย์ปกติทั่วไป</span>
+          </p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">Voice</span>
@@ -1755,11 +2079,19 @@
 <section class="section" id="contact">
   <div class="container">
     <div class="contact-box reveal">
-      <h2>Contact Me</h2>
-      <p>I'm currently looking for an internship. If you need a programmer, feel free to reach out.</p>
+      <h2>
+        <span class="lang-en">Contact Me</span>
+        <span class="lang-th">ติดต่อผม</span>
+      </h2>
+      <p>
+        <span class="lang-en">I'm currently looking for an internship. If you need a programmer, feel free to reach out.</span>
+        <span class="lang-th">ขณะนี้ผมกำลังมองหาโอกาสในการฝึกงาน หากคุณต้องการโปรแกรมเมอร์ที่พร้อมร่วมงานและเรียนรู้ สามารถติดต่อหาผมได้ทันทีเลยครับ</span>
+      </p>
       <div class="contact-links">
         <a href="https://mail.google.com/mail/?view=cm&to=thanadul.suan@gmail.com" target="_blank" class="contact-link">
-          <i class="fa-solid fa-envelope"></i> Email
+          <i class="fa-solid fa-envelope"></i> 
+          <span class="lang-en">Email</span>
+          <span class="lang-th">อีเมล</span>
         </a>
         <a href="https://github.com/Krayonne" target="_blank" class="contact-link">
           <i class="fa-brands fa-github"></i> GitHub
@@ -1795,7 +2127,10 @@
         </div>
 
         <div class="lightbox-meta">
-          <span style="font-size: .75rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">Technical Tags</span>
+          <span style="font-size: .75rem; font-weight: 700; color: var(--text-soft); letter-spacing: .08em; text-transform: uppercase;">
+            <span class="lang-en">Technical Tags</span>
+            <span class="lang-th">แท็กทางเทคนิค</span>
+          </span>
           <div class="project-tags" id="lightboxTags">
             <!-- dynamic tags -->
           </div>
@@ -2047,9 +2382,9 @@
 
   function openLightbox(card, type) {
     const img = card.querySelector('img').src;
-    const title = card.querySelector('h3').textContent;
-    const category = card.querySelector('.project-thumb-label')?.textContent || (type === 'project' ? 'Game Project' : '3D Art Asset');
-    const desc = card.querySelector('p:not(.project-role)').textContent;
+    const title = card.querySelector('h3').innerHTML;
+    const category = card.querySelector('.project-thumb-label')?.innerHTML || (type === 'project' ? '<span class="lang-en">Game Project</span><span class="lang-th">โปรเจกต์เกม</span>' : '<span class="lang-en">3D Art Asset</span><span class="lang-th">โมเดล 3D</span>');
+    const desc = card.querySelector('p:not(.project-role)').innerHTML;
     
     // Technical specs (bullets or extra detail)
     let detailsHtml = `<p>${desc}</p>`;
@@ -2060,7 +2395,7 @@
 
     // Role
     const roleEl = card.querySelector('.project-role');
-    const roleText = roleEl ? roleEl.textContent : '';
+    const roleHtml = roleEl ? roleEl.innerHTML : '';
 
     // Parsed and Categorized Tags
     const tagsContainer = card.querySelector('.project-tags') || card.querySelector('div[style*="flex-wrap"]');
@@ -2090,13 +2425,13 @@
     // Populate modal elements
     document.getElementById('lightboxImg').src = img;
     document.getElementById('lightboxBlurBg').style.backgroundImage = `url('${img}')`;
-    document.getElementById('lightboxCategory').textContent = category;
-    document.getElementById('lightboxTitle').textContent = title;
+    document.getElementById('lightboxCategory').innerHTML = category;
+    document.getElementById('lightboxTitle').innerHTML = title;
     document.getElementById('lightboxDesc').innerHTML = detailsHtml;
     
     const roleIndicator = document.getElementById('lightboxRole');
-    if (roleText) {
-      roleIndicator.textContent = roleText;
+    if (roleHtml) {
+      roleIndicator.innerHTML = roleHtml;
       roleIndicator.style.display = 'block';
     } else {
       roleIndicator.style.display = 'none';
@@ -2280,6 +2615,79 @@
       themeIcon.className = 'fa-solid fa-sun'; // Show sun icon in dark mode
     } else {
       themeIcon.className = 'fa-solid fa-moon'; // Show moon icon in light mode
+    }
+  }
+
+  /* ══════════════════════════════════════
+     BILINGUAL LANGUAGE CONTROLLER (EN/TH)
+     ══════════════════════════════════════ */
+  const langToggle = document.getElementById('langToggle');
+  const langToggleMobile = document.getElementById('langToggleMobile');
+  
+  // Set SEO metadata and doc titles
+  const titles = {
+    en: "Thanadul Suanma – Unity Game Developer",
+    th: "ธนาดุล สวนมา – นักพัฒนาเกม Unity"
+  };
+  
+  const metaDescriptions = {
+    en: "I make games in Unity — and I care a lot about making them feel good. Fast, smooth, and fun to play.",
+    th: "ผมพัฒนาเกมด้วย Unity เป็นหลัก และให้ความสำคัญกับการทำให้เกมสนุก เป็นมิตรกับผู้เล่น และประมวลผลให้รองรับสำหรับอุปกรณ์ส่วนใหญ่ของตลาด"
+  };
+
+  function setLanguage(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    localStorage.setItem('lang', lang);
+    
+    // Update active highlights in UI
+    const isEn = lang === 'en';
+    
+    document.getElementById('langOptEN').classList.toggle('active', isEn);
+    document.getElementById('langOptTH').classList.toggle('active', !isEn);
+    
+    if (document.getElementById('langOptENMobile')) {
+      document.getElementById('langOptENMobile').classList.toggle('active', isEn);
+      document.getElementById('langOptTHMobile').classList.toggle('active', !isEn);
+    }
+    
+    // Update document title and meta description
+    document.title = titles[lang] || titles.en;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', metaDescriptions[lang] || metaDescriptions.en);
+    }
+  }
+
+  function toggleLanguage() {
+    const currentLang = document.documentElement.getAttribute('data-lang') || 'en';
+    const newLang = currentLang === 'en' ? 'th' : 'en';
+    setLanguage(newLang);
+  }
+
+  // Event Listeners
+  langToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLanguage();
+  });
+
+  if (langToggleMobile) {
+    langToggleMobile.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLanguage();
+    });
+  }
+
+  // Initialization: Auto-detect browser language or load saved
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang) {
+    setLanguage(savedLang);
+  } else {
+    // Check browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && browserLang.toLowerCase().startsWith('th')) {
+      setLanguage('th');
+    } else {
+      setLanguage('en');
     }
   }
 </script>

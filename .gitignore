@@ -36,6 +36,3 @@ $RECYCLE.BIN/
 *.log
 *.tmp
 *.temp
-
-# --- Documentation ---
-*.md

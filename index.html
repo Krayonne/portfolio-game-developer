@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Thanadul Suanma – Unity Game Developer</title>
+  <meta name="description" content="Portfolio of Thanadul Suanma, a passionate Unity Game Developer & Lead Programmer specializing in technical gameplay systems, high-performance optimization, and co-op multiplayer netcode." />
+  <meta name="keywords" content="Thanadul Suanma, Unity Developer, Game Developer Portfolio, Lead Programmer, Unity C#, Multiplayer Netcode, Game Optimization" />
+  <meta name="author" content="Thanadul Suanma" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet"/>
   <!-- Add Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -90,6 +93,10 @@
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--blue1);
+      outline-offset: 2px;
+    }
 
     /* --- Utility --- */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
@@ -358,12 +365,12 @@
     ══════════════════════════════════════ */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+      gap: 32px;
     }
     .project-card {
       background: var(--surface);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0; 
+      border-radius: var(--radius-lg); 
       overflow: hidden;
       box-shadow: var(--card-shadow);
       border: 1.5px solid var(--blue3);
@@ -386,7 +393,7 @@
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
-      transform: scale(1.02); /* Hides edge artifacts or baked-in borders */
+      transform: scale(1.02);
     }
     .project-thumb-label {
       position: absolute; top: 12px; left: 12px;
@@ -410,19 +417,17 @@
     }
     .project-body p { font-size: .9rem; color: var(--text-soft); margin-bottom: 14px; }
     
-    /* --- แยกส่วน Tags --- */
     .project-tags { 
       display: flex; 
       gap: 6px; 
       flex-wrap: wrap; 
-      margin-top: auto; /* ดันลงล่างสุดใน body ก่อนจะถึง divider */
+      margin-top: auto;
     }
 
-    /* --- แยกส่วน Links/Buttons --- */
     .project-links { 
       margin-top: 16px; 
       padding-top: 16px;
-      border-top: 1px solid var(--blue3); /* เส้นแบ่งโซน (แทนเส้นแดงที่พี่วาด) */
+      border-top: 1px solid var(--blue3);
       display: flex; 
       gap: 10px; 
       flex-wrap: wrap; 
@@ -439,7 +444,7 @@
       font-weight: 700;
       padding: 6px 16px;
       border-radius: 999px;
-      box-shadow: 0 2px 8px rgba(100,140,220,0.08); /* เงาอ่อนๆ ให้ปุ่มดูลอยขึ้นแบบ Layla UI */
+      box-shadow: 0 2px 8px rgba(100,140,220,0.08);
       transition: all .2s;
     }
     .project-link-btn i {
@@ -458,7 +463,7 @@
     ══════════════════════════════════════ */
     .audio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 24px;
       align-items: stretch;
     }
@@ -512,12 +517,12 @@
       padding: 12px 24px;
       font-weight: 700;
       color: var(--blue4);
-      display: flex; align-items: center; gap: 8px; /* Gap for Icon and Text spacing */
+      display: flex; align-items: center; gap: 8px;
       transition: transform .2s, box-shadow .2s;
       box-shadow: var(--card-shadow);
     }
     .contact-link i {
-      font-size: 1.1rem; /* Slightly larger icon */
+      font-size: 1.1rem;
     }
     .contact-link:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(100,140,220,.25); }
 
@@ -549,6 +554,7 @@
       border: none;
       cursor: pointer;
       padding: 4px;
+      z-index: 101;
     }
     .nav-hamburger span {
       display: block;
@@ -556,7 +562,16 @@
       height: 2px;
       background: var(--blue4);
       border-radius: 2px;
-      transition: all .3s;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
     .nav-mobile {
       display: flex;
@@ -760,6 +775,10 @@
       transform: scale(1.05);
       box-shadow: 0 4px 14px rgba(196, 81, 106, 0.4);
     }
+    .audio-play-btn:focus-visible, .audio-slider:focus-visible {
+      outline: 2px solid var(--blue1);
+      outline-offset: 3px;
+    }
     .audio-slider-wrap {
       flex-grow: 1;
       display: flex;
@@ -836,7 +855,7 @@
     /* --- Predefined Previews and Layouts --- */
     .assets-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 24px;
     }
     .asset-card {
@@ -867,7 +886,31 @@
       object-fit: cover;
     }
 
-
+    .asset-body {
+      padding: 16px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+    .asset-body h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0;
+      color: var(--text);
+    }
+    .asset-body p {
+      font-size: .82rem;
+      color: var(--text-soft);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .asset-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
 
     /* --- Lightbox Modal --- */
     .lightbox-modal {
@@ -894,7 +937,6 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: var(--lightbox-backdrop-bg);
       backdrop-filter: blur(12px);
-      /* Managed highly efficiently by parent opacity transition */
     }
     .lightbox-content {
       position: relative;
@@ -975,10 +1017,10 @@
       background: rgba(0,0,0,0.05);
     }
     .lightbox-details {
-      padding: 36px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       overflow-y: auto;
       max-height: 80vh;
     }
@@ -1005,7 +1047,6 @@
       margin-bottom: 12px;
     }
     
-    /* --- Categorized Premium Tech Tags --- */
     .tag-engine {
       background: rgba(232, 130, 154, 0.15) !important;
       color: var(--blue1) !important;
@@ -1043,6 +1084,7 @@
       flex-direction: column;
       gap: 10px;
     }
+
     @media (max-width: 768px) {
       .lightbox-body {
         grid-template-columns: 1fr;
@@ -1053,7 +1095,8 @@
       }
       .lightbox-details {
         padding: 24px;
-        max-height: 55vh;
+        max-height: 50vh;
+        overflow-y: auto;
       }
       .lightbox-modal {
         padding: 12px;
@@ -1075,7 +1118,6 @@
       transform: translateY(0);
     }
     
-    /* Grid cards starting state for stagger reveal */
     .reveal-grid .project-card,
     .reveal-grid .project-card-featured,
     .reveal-grid .asset-card,
@@ -1085,7 +1127,7 @@
       transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
                   transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
                   box-shadow 0.3s ease,
-                  transform 0.3s ease; /* Maintain existing hover shadow & lift transition */
+                  transform 0.3s ease;
       will-change: transform, opacity;
     }
     
@@ -1266,7 +1308,6 @@
             <span class="tag">3D</span>
             <span class="tag">Multiplayer</span>
           </div>
-
         </div>
       </div>
 
@@ -1386,7 +1427,6 @@
             <span class="tag">3D</span>
             <span class="tag">VR</span>
           </div>
-          <!-- ข้าม: ไม่มีปุ่ม YouTube -->
         </div>
       </div>
 
@@ -1448,10 +1488,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-controller.png" alt="Control Console" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Control Console</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Control Console</h3>
+          <p>The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</p>
+          <div class="asset-tags"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1459,10 +1499,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-turbine.png" alt="Reactor Turbine" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Reactor Turbine</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">A heavy generator unit for Core Control. Sits in the background of the reactor room as a big rotating machine — mostly there to make the space feel real.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Reactor Turbine</h3>
+          <p>A heavy generator unit for Core Control. This large rotating machine sits in the background of the reactor room to enhance the environmental realism.</p>
+          <div class="asset-tags"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1470,10 +1510,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-rocket.png" alt="Rocket Artillery" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Rocket Artillery</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Rocket Artillery</h3>
+          <p>Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
+          <div class="asset-tags"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1772,6 +1812,14 @@
   </div>
 </section>
 
+<!-- --- Footer --- -->
+<footer style="padding: 40px 0; background: var(--surface); border-top: 1.5px solid var(--blue3); text-align: center; margin-top: 80px; position: relative; z-index: 10;">
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+    <div class="nav-logo" style="font-size: 1.2rem;">My<span> Portfolio</span></div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin: 0;">&copy; 2026 Thanadul Suanma. All Rights Reserved.</p>
+    <p style="font-size: 0.75rem; color: var(--text-soft); opacity: 0.8; margin: 0;">Designed with <i class="fa-solid fa-heart" style="color: var(--blue1);"></i> for Unity Game Development Portfolio</p>
+  </div>
+</footer>
 
 <!-- Fullscreen Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">
@@ -1915,7 +1963,7 @@
   // Dynamic Click ripple
   window.addEventListener('click', (e) => {
     // Only ripple if we click background, not buttons or forms
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'I' && !e.target.closest('.project-card') && !e.target.closest('.audio-card')) {
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'I' && !e.target.closest('.project-card') && !e.target.closest('.audio-card') && !e.target.closest('.asset-card') && !e.target.closest('.lightbox-content')) {
       ripples.push({
         x: e.clientX,
         y: e.clientY,
@@ -1970,6 +2018,7 @@
     const slider = player.querySelector('.audio-slider');
     const timeDisplay = player.querySelector('.audio-time');
     const visualizer = player.querySelector('.audio-visualizer');
+    const errorMsg = player.querySelector('.audio-error-msg');
 
     // Format time: minutes:seconds
     function formatTime(seconds) {
@@ -2152,10 +2201,14 @@
   });
 
   function toggleMobileMenu() {
-    document.getElementById('navMobile').classList.toggle('open');
+    const mobileMenu = document.getElementById('navMobile');
+    const hamburger = document.getElementById('navHamburger');
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open');
   }
   function closeMobileMenu() {
     document.getElementById('navMobile').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
   }
   document.getElementById('navHamburger').addEventListener('click', toggleMobileMenu);
 
@@ -2208,6 +2261,11 @@
         currentId = section.getAttribute('id');
       }
     });
+
+    // Override active state if scrolled to the absolute bottom of the page
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
+      currentId = 'contact';
+    }
 
     allNavLinks.forEach(link => {
       if (link.getAttribute('href') === `#${currentId}`) {

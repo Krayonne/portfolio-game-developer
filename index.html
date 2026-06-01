@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Thanadul Suanma – Unity Game Developer</title>
+  <meta name="description" content="Portfolio of Thanadul Suanma, a passionate Unity Game Developer & Lead Programmer specializing in technical gameplay systems, high-performance optimization, and co-op multiplayer netcode." />
+  <meta name="keywords" content="Thanadul Suanma, Unity Developer, Game Developer Portfolio, Lead Programmer, Unity C#, Multiplayer Netcode, Game Optimization" />
+  <meta name="author" content="Thanadul Suanma" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet"/>
   <!-- Add Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -421,7 +424,7 @@
     ══════════════════════════════════════ */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
       gap: 32px;
     }
     
@@ -456,7 +459,7 @@
 
     .project-card {
       background: var(--surface);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0; 
+      border-radius: var(--radius-lg); 
       overflow: hidden;
       box-shadow: var(--card-shadow);
       border: 1.5px solid var(--blue3);
@@ -551,7 +554,7 @@
     ══════════════════════════════════════ */
     .audio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 24px;
       align-items: stretch;
     }
@@ -642,6 +645,7 @@
       border: none;
       cursor: pointer;
       padding: 4px;
+      z-index: 101;
     }
     .nav-hamburger span {
       display: block;
@@ -649,7 +653,16 @@
       height: 2px;
       background: var(--blue4);
       border-radius: 2px;
-      transition: all .3s;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
     .nav-mobile {
       display: flex;
@@ -823,6 +836,10 @@
       outline: 2px solid var(--blue1);
       outline-offset: 3px;
     }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--blue1);
+      outline-offset: 2px;
+    }
     .audio-error-msg {
       font-size: 0.7rem;
       color: #ff4d4d;
@@ -954,7 +971,7 @@
     /* --- Predefined Previews and Layouts --- */
     .assets-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 24px;
     }
     .asset-card {
@@ -1154,6 +1171,14 @@
       flex-direction: column;
       gap: 10px;
     }
+    .lightbox-details {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
     @media (max-width: 768px) {
       .lightbox-body {
         grid-template-columns: 1fr;
@@ -1164,11 +1189,39 @@
       }
       .lightbox-details {
         padding: 24px;
-        max-height: 55vh;
+        max-height: 50vh;
+        overflow-y: auto;
       }
       .lightbox-modal {
         padding: 12px;
       }
+    }
+
+    /* --- Asset Cards Refactoring --- */
+    .asset-body {
+      padding: 16px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+    .asset-body h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0;
+      color: var(--text);
+    }
+    .asset-body p {
+      font-size: .82rem;
+      color: var(--text-soft);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .asset-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
     }
 
     /* ══════════════════════════════════════
@@ -1559,10 +1612,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-controller.png" alt="Control Console" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Control Console</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Control Console</h3>
+          <p>The central VR interface for Core Control. Built around levers, sliders, and dials you actually grab and pull.</p>
+          <div class="asset-tags"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1570,10 +1623,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-turbine.png" alt="Reactor Turbine" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Reactor Turbine</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">A heavy generator unit for Core Control. This large rotating machine sits in the background of the reactor room to enhance the environmental realism.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Reactor Turbine</h3>
+          <p>A heavy generator unit for Core Control. This large rotating machine sits in the background of the reactor room to enhance the environmental realism.</p>
+          <div class="asset-tags"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1581,10 +1634,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-rocket.png" alt="Rocket Artillery" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Rocket Artillery</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Rocket Artillery</h3>
+          <p>Inspired by the TOS-2 Tosochka's thermobaric rocket system, re-mounted onto a Bradley hull for faster deployment.</p>
+          <div class="asset-tags"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1592,10 +1645,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-fpv.png" alt="FPV Drone" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">FPV Drone</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Model based on fast FPV drones, designed for high-speed maneuvering and precision strikes in White Heat.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>FPV Drone</h3>
+          <p>Model based on fast FPV drones, designed for high-speed maneuvering and precision strikes in White Heat.</p>
+          <div class="asset-tags"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1603,10 +1656,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-ifv.png" alt="Infantry Fighting Vehicle" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Infantry Fighting Vehicle</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Infantry Fighting Vehicle</h3>
+          <p>Inspired by the M2 Bradley, adapted as the game's primary troop carrier and frontline fire support vehicle.</p>
+          <div class="asset-tags"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1614,10 +1667,10 @@
         <div class="asset-thumb tilt-card">
           <img src="image/model-mbt.png" alt="Main Battle Tank" />
         </div>
-        <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="font-size: 1rem; font-weight: 800;">Main Battle Tank</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Model based on the T-84 Oplot, serving as the game's heaviest unit with high firepower and slow movement.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
+        <div class="asset-body">
+          <h3>Main Battle Tank</h3>
+          <p>Model based on the T-84 Oplot, serving as the game's heaviest unit with high firepower and slow movement.</p>
+          <div class="asset-tags"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
 
@@ -1890,6 +1943,14 @@
   </div>
 </section>
 
+<!-- --- Footer --- -->
+<footer style="padding: 40px 0; background: var(--surface); border-top: 1.5px solid var(--blue3); text-align: center; margin-top: 80px; position: relative; z-index: 10;">
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+    <div class="nav-logo" style="font-size: 1.2rem;">My<span> Portfolio</span></div>
+    <p style="font-size: 0.85rem; color: var(--text-soft); margin: 0;">&copy; 2026 Thanadul Suanma. All Rights Reserved.</p>
+    <p style="font-size: 0.75rem; color: var(--text-soft); opacity: 0.8; margin: 0;">Designed with <i class="fa-solid fa-heart" style="color: var(--blue1);"></i> for Unity Game Development Portfolio</p>
+  </div>
+</footer>
 
 <!-- Fullscreen Lightbox Modal -->
 <div class="lightbox-modal" id="lightboxModal">
@@ -2033,7 +2094,7 @@
   // Dynamic Click ripple
   window.addEventListener('click', (e) => {
     // Only ripple if we click background, not buttons or forms
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'I' && !e.target.closest('.project-card') && !e.target.closest('.audio-card')) {
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A' && e.target.tagName !== 'I' && !e.target.closest('.project-card') && !e.target.closest('.audio-card') && !e.target.closest('.asset-card') && !e.target.closest('.lightbox-content')) {
       ripples.push({
         x: e.clientX,
         y: e.clientY,
@@ -2088,6 +2149,7 @@
     const slider = player.querySelector('.audio-slider');
     const timeDisplay = player.querySelector('.audio-time');
     const visualizer = player.querySelector('.audio-visualizer');
+    const errorMsg = player.querySelector('.audio-error-msg');
 
     // Format time: minutes:seconds
     function formatTime(seconds) {
@@ -2329,10 +2391,14 @@
   });
 
   function toggleMobileMenu() {
-    document.getElementById('navMobile').classList.toggle('open');
+    const mobileMenu = document.getElementById('navMobile');
+    const hamburger = document.getElementById('navHamburger');
+    mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open');
   }
   function closeMobileMenu() {
     document.getElementById('navMobile').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
   }
   document.getElementById('navHamburger').addEventListener('click', toggleMobileMenu);
 
@@ -2385,6 +2451,11 @@
         currentId = section.getAttribute('id');
       }
     });
+
+    // Override active state if scrolled to the absolute bottom of the page
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
+      currentId = 'contact';
+    }
 
     allNavLinks.forEach(link => {
       if (link.getAttribute('href') === `#${currentId}`) {

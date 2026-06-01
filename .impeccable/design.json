@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2025-06-01T12:00:00Z",
+  "title": "Design System: Thanadul Suanma Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Blossom", "canonical": "#e8829a", "tonalRamp": ["#4a2d35", "#7a4a58", "#a6687a", "#d2869c", "#e8829a", "#f4b8c8", "#fce8f0", "#fff7f9"] },
+      "neutral-bg": { "role": "neutral", "displayName": "Dusty Rose", "canonical": "#fdf0f5", "tonalRamp": ["#120a0d", "#2d1d24", "#5a3a45", "#8c626f", "#bd93a0", "#dcbcc5", "#fdf0f5", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines and section titles." },
+      "body": { "displayName": "Body", "purpose": "Main prose and project descriptions." }
+    },
+    "shadows": [
+      { "name": "card-shadow", "value": "0 4px 24px rgba(220,100,130,0.12)", "purpose": "Default elevation for cards." },
+      { "name": "nav-shadow", "value": "0 8px 32px rgba(220, 100, 130, 0.08)", "purpose": "Floating navigation depth." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Smooth reveal animations." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main call to action.",
+      "html": "<button class=\"ds-btn-primary\">View My Work</button>",
+      "css": ".ds-btn-primary { background: #e8829a; color: #fff; padding: 10px 28px; border-radius: 999px; font-weight: 700; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; } .ds-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232, 130, 154, 0.3); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card-base",
+      "description": "Container for project showcase.",
+      "html": "<div class=\"ds-project-card\"><div class=\"ds-card-thumb\"></div><div class=\"ds-card-body\"><h3>Project Title</h3><p>Description goes here.</p></div></div>",
+      "css": ".ds-project-card { background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(220,100,130,0.12); border: 1.5px solid #fce8f0; transition: transform 0.3s, box-shadow 0.3s; } .ds-project-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(100,140,220,0.2); } .ds-card-thumb { aspect-ratio: 16/9; background: linear-gradient(135deg, #fce8f0, #f4b8c8); } .ds-card-body { padding: 20px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Mechanical Elegance",
+    "overview": "The design system balances precise, systematic game development with a soft, inviting aesthetic.",
+    "keyCharacteristics": ["Tactile surfaces", "Precise alignment", "Soft palette", "Fluid typography"],
+    "dos": ["Do use clamp() for major headlines", "Do maintain 24px corner radius", "Do use Blossom sparingly"],
+    "donts": ["Don't use pure black", "Don't use sharp corners", "Don't use generic SaaS blue"]
+  }
+}

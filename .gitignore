@@ -1,5 +1,4 @@
 # --- IDE & Environment Specific ---
-.impeccable/
 
 # --- Operating System Files ---
 # Windows
@@ -37,5 +36,3 @@ $RECYCLE.BIN/
 *.tmp
 *.temp
 
-# --- Documentation ---
-*.md

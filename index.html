@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Thanadul Suanma – Unity Game Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet"/>
   <!-- Add Font Awesome for Icons -->
@@ -79,14 +79,52 @@
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* Accessibility: Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+      .reveal, .reveal-grid .project-card, .reveal-grid .project-card-featured, .reveal-grid .asset-card, .reveal-grid .audio-card {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      #bg-canvas { display: none !important; }
+    }
+
     /* --- Reset --- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { 
+      scroll-behavior: smooth;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
     body {
       font-family: 'Nunito', 'Prompt', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+    }
+
+    /* Touch Adaptation: Coarse Pointers (Mobile/Tablet) */
+    @media (pointer: coarse) {
+      .btn, .contact-link, .project-link-btn, .audio-play-btn, .lightbox-close {
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .audio-slider-wrap {
+        padding: 10px 0; /* Increase tap area around slider */
+      }
+      .nav-links a {
+        padding: 12px 8px; /* Larger touch targets for potential touch desktops/tablets */
+      }
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -156,19 +194,20 @@
       position: absolute;
       bottom: 0;
       left: 50%;
-      width: 0;
+      width: 14px;
       height: 2px;
       background: var(--blue1);
       border-radius: 2px;
-      transform: translateX(-50%);
-      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-50%) scaleX(0);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center;
     }
     .nav-links a:hover { color: var(--blue4); }
     .nav-links a.active {
       color: var(--blue4);
     }
     .nav-links a.active::after {
-      width: 14px;
+      transform: translateX(-50%) scaleX(1);
     }
     .theme-toggle-btn {
       background: none;
@@ -199,16 +238,40 @@
       min-height: 100vh;
       display: flex; align-items: center;
       padding-top: 80px;
+      position: relative;
       background:
         radial-gradient(ellipse 70% 60% at 80% 50%, #f4b8c8 0%, transparent 65%),
         radial-gradient(ellipse 50% 50% at 10% 80%, #fce8f0 0%, transparent 60%),
         var(--bg);
+      overflow: hidden;
     }
+    /* Blueprint Grid Background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(var(--blue2) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue2) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+    :root[data-theme="dark"] .hero::before {
+      background-image: 
+        linear-gradient(var(--blue1) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue1) 1px, transparent 1px);
+      opacity: 0.05;
+    }
+
     .hero-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 48px;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
     .hero-text h1 {
       font-size: clamp(2rem, 4vw, 3.2rem);
@@ -359,8 +422,38 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
+      gap: 32px;
     }
+    
+    /* Alternating layout variety for standard cards */
+    @media (min-width: 900px) {
+      .projects-grid .project-card:nth-child(even) {
+        margin-top: 24px;
+      }
+    }
+    
+    .project-card, .project-card-featured, .asset-card, .audio-card {
+      position: relative;
+    }
+
+    /* Mechanical Wireframe Accents */
+    .project-card::before, .project-card-featured::before, .asset-card::before, .audio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-top: 1.5px solid var(--blue1);
+      border-left: 1.5px solid var(--blue1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 5;
+      border-radius: var(--radius-lg) 0 0 0;
+    }
+    .project-card:hover::before, .project-card-featured:hover::before, .asset-card:hover::before, .audio-card:hover::before {
+      opacity: 0.6;
+    }
+
     .project-card {
       background: var(--surface);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0; 
@@ -634,17 +727,20 @@
     .featured-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, var(--blue1), var(--blue4));
+      gap: 8px;
+      background: var(--blue1);
       color: #fff;
-      font-size: .72rem;
+      font-size: .68rem;
       font-weight: 800;
-      padding: 4px 12px;
-      border-radius: 999px;
-      letter-spacing: .06em;
+      padding: 6px 14px;
+      border-radius: 4px; /* Systematic square-ish corners */
+      letter-spacing: .08em;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: 'Courier New', Courier, monospace; /* Technical feel */
     }
+    .featured-badge i { font-size: 0.6rem; opacity: 0.9; }
     @media (max-width: 768px) {
       .project-card-featured {
         grid-template-columns: 1fr;
@@ -723,6 +819,18 @@
       display: block;
     }
 
+    .audio-play-btn:focus-visible, .audio-slider:focus-visible {
+      outline: 2px solid var(--blue1);
+      outline-offset: 3px;
+    }
+    .audio-error-msg {
+      font-size: 0.7rem;
+      color: #ff4d4d;
+      margin-top: 4px;
+      display: none;
+      font-weight: 700;
+    }
+
     /* --- Custom Audio Player --- */
     .custom-audio-player {
       display: flex;
@@ -781,15 +889,23 @@
     .audio-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 20px; /* Further increased for adaptation pass */
+      height: 20px;
       border-radius: 50%;
       background: var(--blue1);
       cursor: pointer;
       transition: transform 0.1s, background 0.1s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    /* Increase invisible hit area for coarse pointers */
+    @media (pointer: coarse) {
+      .audio-slider::-webkit-slider-thumb {
+        width: 28px;
+        height: 28px;
+      }
     }
     .audio-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.3);
+      transform: scale(1.15);
       background: var(--blue4);
     }
     .audio-time {
@@ -815,14 +931,16 @@
     }
     .audio-visualizer .bar {
       width: 4px;
-      height: 4px;
+      height: 18px; /* Set a base height */
       background: var(--blue1);
       border-radius: 2px;
-      transition: height 0.1s ease;
+      transform: scaleY(0.2); /* Initial scale */
+      transition: transform 0.1s ease;
+      transform-origin: bottom;
     }
     @keyframes pulse-bar {
-      0%, 100% { height: 4px; }
-      50% { height: 18px; }
+      0%, 100% { transform: scaleY(0.2); }
+      50% { transform: scaleY(1); }
     }
     .audio-visualizer.playing .bar:nth-child(1) { animation: pulse-bar 0.6s ease-in-out infinite alternate; }
     .audio-visualizer.playing .bar:nth-child(2) { animation: pulse-bar 0.4s ease-in-out infinite alternate 0.1s; }
@@ -971,34 +1089,27 @@
       max-height: 480px;
       box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
       border-radius: var(--radius-md);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.2s ease;
       background: rgba(0,0,0,0.05);
+      opacity: 0; /* Hide by default to prevent broken-image box */
     }
-    .lightbox-details {
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      overflow-y: auto;
-      max-height: 80vh;
+    .lightbox-media img[src^="image/"] {
+      opacity: 1; /* Show only when a real image is loaded */
     }
-    .lightbox-details h3 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--text);
-      margin: 8px 0 4px 0;
-      line-height: 1.2;
+
+    /* Production Hardening: Text Overflow */
+    .project-body h3, .asset-card h3, .audio-card h4 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
     }
-    .lightbox-role {
-      font-size: .82rem;
-      font-weight: 700;
-      color: var(--blue1);
-      margin-bottom: 12px;
-    }
-    .lightbox-description {
-      font-size: 0.9rem;
-      color: var(--text-soft);
-      margin: 12px 0 20px 0;
+    .project-body p, .asset-card p, .audio-card p {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       line-height: 1.6;
     }
     .lightbox-description p {
@@ -1139,7 +1250,7 @@
     <div class="hero-inner">
       <div class="hero-text">
         <h1>Hi, I'm<br><span>Thanadul Suanma</span></h1>
-        <p>I make games in Unity — and I care a lot about making them feel good. Fast, smooth, and fun to play.</p>
+        <p>I build immersive games in Unity with a focus on polished mechanics and high-performance systems. I'm passionate about making gameplay feel responsive, smooth, and inherently fun.</p>
         <div class="hero-btns">
           <a href="#projects" class="btn btn-primary">View My Work</a>
           <a href="#contact" class="btn btn-outline">Contact Me</a>
@@ -1173,13 +1284,13 @@
       <div class="about-text reveal">
         <h3>Thanadul Suanma | Unity Developer</h3>
         <p>
-          I'm a 3rd-year Game Design student at SPU who got into Unity and C# early and stuck with it. I like understanding how games work — the systems behind the mechanics, the code that makes a fight feel responsive or a frame rate stay stable.
+          I'm a 3rd-year Game Design student at SPU with a deep-rooted interest in Unity and C#. I enjoy exploring the underlying systems that power game mechanics, from the code that ensures responsive combat to the optimizations required for stable performance.
         </p>
         <p>
-          Most of my work is on the programming side: gameplay systems, multiplayer netcode, and getting performance where it needs to be. If something's laggy or jank, I want to fix it. That's just who I am.
+          My work primarily focuses on the technical side of development, including gameplay systems, multiplayer netcode, and performance tuning. I'm dedicated to refining every detail, ensuring that the player experience is as fluid and polished as possible.
         </p>
         <p>
-          Outside of pure code, I use tools like Antigravity, Gemini CLI, and Claude to work faster — not to skip thinking, just to spend more time on actual problems.
+          Beyond pure programming, I leverage modern tools like Antigravity, Gemini CLI, and Claude to streamline my workflow. This allows me to focus my time on solving complex architectural challenges and architectural design.
         </p>
         <div class="skill-pills">
           <span class="skill-pill">Unity</span>
@@ -1209,7 +1320,7 @@
     
     <div class="projects-grid reveal-grid">
 
-      <!-- PROJECT 1 — ABYSS OF EDEN (FEATURED) -->
+      <!-- PROJECT 1: ABYSS OF EDEN (FEATURED) -->
       <div class="project-card-featured">
         <div class="project-thumb tilt-card">
           <img src="image/aoe-cover.png" alt="Abyss of Eden" />
@@ -1221,7 +1332,7 @@
             <h3>Abyss of Eden</h3>
             <p class="project-role">Lead Programmer</p>
           </div>
-          <p>A horde survival game where hundreds of monsters swarm the player at once. My main challenge was keeping the frame rate stable — I spent a lot of time optimizing so performance holds even when a lot is happening on screen.</p>
+          <p>Abyss of Eden is a horde survival game where players must survive swarms of hundreds of enemies. My primary focus was on technical optimization, ensuring the game maintains a stable frame rate even during intense combat sequences with high actor counts.</p>
           <ul class="project-tech-list">
             <li>Built an object pool managing 300+ simultaneous enemies</li>
             <li>Used Unity Profiler to hit and hold frame budget targets</li>
@@ -1243,7 +1354,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 2 — THE SINNERS' REQUIEM -->
+      <!-- PROJECT 2: THE SINNERS' REQUIEM -->
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/aoe-tsr-cover.png" alt="The Sinners' Requiem" />
@@ -1255,7 +1366,7 @@
             <h3>Abyss of Eden: The Sinners' Requiem</h3>
             <p class="project-role">Lead Programmer · Tools & Data Designer</p>
           </div>
-          <p>The sequel to Abyss of Eden, and my biggest project yet. It's an action-RPG with online co-op — I'm handling the multiplayer backend, making sure player state stays in sync without affecting how the game feels to play.</p>
+          <p>As the sequel to Abyss of Eden, this action-RPG introduces online co-op as its core feature. I am responsible for architecting the multiplayer backend, ensuring seamless player synchronization while preserving the responsive feel of local gameplay.</p>
           <ul class="project-tech-list">
             <li>Architecting the multiplayer backend with Unity Netcode for GameObjects (NGO)</li>
             <li>Building custom Unity Editor tools for data &amp; encounter design</li>
@@ -1270,7 +1381,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 3 — SUMMER BAKERY -->
+      <!-- PROJECT 3: SUMMER BAKERY -->
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/summer-bakery-cover.jpg" alt="Summer Bakery" />
@@ -1281,7 +1392,7 @@
             <h3>Summer Bakery</h3>
             <p class="project-role">Game Designer · Programmer · Music&nbsp;Composer</p>
           </div>
-          <p>A cozy 2D game where you run a bakery and serve customers. I designed it, programmed it, and wrote the music. The more you get orders right, the closer you get to the characters — each day ends with a little CG scene.</p>
+          <p>Summer Bakery is a cozy 2D management game where players run a small shop and build relationships with their customers. I handled the design, programming, and music composition, creating a system where story progress is tied to successful player interactions.</p>
           <ul class="project-tech-list">
             <li>Built an NPC relationship system with progressive story unlocks</li>
             <li>Wrote a procedural order generator for randomized customer requests</li>
@@ -1302,7 +1413,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 4 — WHITE HEAT -->
+      <!-- PROJECT 4: WHITE HEAT -->
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/white-heat-cover.jpg" alt="White Heat" />
@@ -1313,7 +1424,7 @@
             <h3>White Heat</h3>
             <p class="project-role">Game Designer · Lead Programmer</p>
           </div>
-          <p>A top-down tactical game I led the programming on. Units use AI to navigate and react, you can hide in cover, and bullets actually travel — not instant hits.</p>
+          <p>This top-down tactical game features realistic projectile physics and sophisticated unit AI. I led the development of the combat systems, where units navigate dynamically using cover and react to real-time battlefield conditions.</p>
           <ul class="project-tech-list">
             <li>Built a projectile physics system with real travel time &amp; ballistics</li>
             <li>Implemented NavMesh pathfinding with custom steering behavior for unit AI</li>
@@ -1334,7 +1445,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 5 — ZETA ZERO -->
+      <!-- PROJECT 5: ZETA ZERO -->
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/zeta-zero-cover.jpg" alt="Zeta Zero" />
@@ -1345,7 +1456,7 @@
             <h3>Zeta Zero</h3>
             <p class="project-role">Solo Developer</p>
           </div>
-          <p>A solo survival game I made from scratch. Monsters detect you by sight and sound, you manage weapons and ammo, and death has a real penalty. I built all the systems myself to practice designing game systems on my own.</p>
+          <p>Zeta Zero is a solo survival project built to explore stealth and sensory systems. I implemented AI that detects players through both sight and sound, alongside a weapon accuracy system that responds to player stance and movement.</p>
           <ul class="project-tech-list">
             <li>Built sight &amp; sound detection AI with a dynamic noise radius per weapon</li>
             <li>Implemented NavMesh pathfinding with chase &amp; patrol state machines</li>
@@ -1365,7 +1476,7 @@
         </div>
       </div>
 
-      <!-- PROJECT 6 — CORE CONTROL -->
+      <!-- PROJECT 6: CORE CONTROL -->
       <div class="project-card">
         <div class="project-thumb tilt-card">
           <img src="image/core-control-cover.png" alt="Core Control" />
@@ -1376,7 +1487,7 @@
             <h3>Core Control</h3>
             <p class="project-role">Solo Developer</p>
           </div>
-          <p>A VR game where you're in charge of a nuclear reactor — pulling levers, managing systems, trying not to cause a meltdown. I built it solo and it taught me a lot about interaction design in physical space.</p>
+          <p>This VR simulation places players in charge of a nuclear reactor, emphasizing tactile interaction in physical space. Developing this solo taught me the importance of intuitive controls and environmental feedback in virtual reality.</p>
           <ul class="project-tech-list">
             <li>Built a VR interaction system for physical levers, buttons, and sliders</li>
           </ul>
@@ -1410,7 +1521,7 @@
             <h3>Finance Tracker</h3>
             <p class="project-role">Solo Developer · UX Designer</p>
           </div>
-          <p>A personal finance dashboard I built and use every day. It tracks transactions across THB and USD, monitors my stock portfolio with near-real-time prices, and calculates actual profit after exchange rate changes — not just the raw balance.</p>
+          <p>This personal dashboard monitors transactions across multiple currencies and tracks stock portfolios in near-real-time. I designed it to calculate actual profit margins after accounting for exchange rate fluctuations, providing a clear view of total net worth.</p>
           <ul class="project-tech-list">
             <li>Integrated real-time stock prices with exchange rate correction</li>
             <li>Synced data to Google Drive for cloud-based persistence</li>
@@ -1461,7 +1572,7 @@
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Reactor Turbine</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">A heavy generator unit for Core Control. Sits in the background of the reactor room as a big rotating machine — mostly there to make the space feel real.</p>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">A heavy generator unit for Core Control. This large rotating machine sits in the background of the reactor room to enhance the environmental realism.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">Core Control</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1483,7 +1594,7 @@
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">FPV Drone</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Based on FPV drones from the Russia-Ukraine war — cheap, fast, and surprisingly good at killing tanks.</p>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Model based on fast FPV drones, designed for high-speed maneuvering and precision strikes in White Heat.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1505,7 +1616,7 @@
         </div>
         <div style="padding: 16px 20px 20px 20px; display: flex; flex-direction: column; gap: 10px;">
           <h3 style="font-size: 1rem; font-weight: 800;">Main Battle Tank</h3>
-          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Based on the T-84 Oplot. The game's heaviest unit — slow, but hits hard.</p>
+          <p style="font-size: .82rem; color: var(--text-soft); margin: 0;">Model based on the T-84 Oplot, serving as the game's heaviest unit with high firepower and slow movement.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">White Heat</span> <span class="tag">Maya</span> <span class="tag">Low-poly</span></div>
         </div>
       </div>
@@ -1534,8 +1645,8 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Summer Bakery — BGM</h4>
-          <p>The BGM for Summer Bakery. I wanted it to sound relaxed — like background music in a small shop. It ended up as a trap beat, which is just what came out when I started producing it.</p>
+          <h4>Summer Bakery: BGM</h4>
+          <p>The background music for Summer Bakery was designed to sound relaxed, resembling the atmosphere of a small shop. It evolved into a trap beat during the production process.</p>
           <div class="audio-card-meta">
             <span class="tag">Summer Bakery</span>
             <span class="skill-pill audio-type-pill">BGM</span>
@@ -1544,14 +1655,15 @@
           <div class="custom-audio-player">
             <audio src="audio/music-summer-bakery.mp3" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1564,8 +1676,8 @@
       <div class="audio-card">
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
-          <h4>Flagellant — Chase Theme</h4>
-          <p>Chase music for a horror game concept. It's Frenchcore — fast, distorted, and at a high BPM. I wanted it to feel like you're being chased and can't outrun it.</p>
+          <h4>Flagellant: Chase Theme</h4>
+          <p>This high-BPM Frenchcore track was composed for a horror game concept to create a sense of urgent, distorted pursuit that feels impossible to outrun.</p>
           <div class="audio-card-meta">
             <span class="tag">Love's Last Lesson</span>
             <span class="skill-pill audio-type-pill">BGM</span>
@@ -1574,14 +1686,15 @@
           <div class="custom-audio-player">
             <audio src="audio/music-flagellant.mp3" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1611,14 +1724,15 @@
           <div class="custom-audio-player">
             <audio src="audio/sfx-aoe-battle-start.wav" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1632,7 +1746,7 @@
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Silent (Ultimate SFX)</h4>
-          <p>The SFX for Death Silent — an ultimate that freezes time. I used ticking clocks, reverse swells, and heavy compression to match the ability's effect. The panning sweeps left to right to reinforce the time-stop feeling.</p>
+          <p>SFX for an ultimate ability that freezes time. I used ticking clocks, reverse swells, and heavy compression, with panning that sweeps across the stereo field to reinforce the time-stop effect.</p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1641,14 +1755,15 @@
           <div class="custom-audio-player">
             <audio src="audio/sfx-aoe-death-silent.mp3" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1662,7 +1777,7 @@
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Death Screen Ambient</h4>
-          <p>What plays when you die. I wanted it to sound off — not like normal music. It's a detuned melody over a dark drone, with distortion turned up until it's uncomfortable to listen to.</p>
+          <p>The ambient track for the death screen features a detuned melody over a dark drone. I increased the distortion levels to create an intentionally uncomfortable auditory experience.</p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1671,14 +1786,15 @@
           <div class="custom-audio-player">
             <audio src="audio/sfx-aoe-dead.mp3" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1692,7 +1808,7 @@
         <div class="audio-card-header" style="background: var(--blue1);"></div>
         <div class="audio-card-body">
           <h4>Moon Slash (Ultimate SFX)</h4>
-          <p>The SFX for Moon Slash — a big, sweeping sword ultimate. I built it from sword swings and metal impacts, then added heavy reverb. The reverb tail is wide and distorted so the attack has a long decay.</p>
+          <p>Built for a sweeping sword ultimate, this SFX combines sword swings and metallic impacts with heavy reverb. The wide distortion in the reverb tail ensures a long, dramatic decay for the attack.</p>
           <div class="audio-card-meta">
             <span class="tag">Abyss of Eden</span>
             <span class="skill-pill audio-type-pill">SFX</span>
@@ -1701,14 +1817,15 @@
           <div class="custom-audio-player">
             <audio src="audio/sfx-aoe-moon-slash.mp3" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1731,14 +1848,15 @@
           <div class="custom-audio-player">
             <audio src="audio/voice-aoe-ultimates.wav" preload="metadata"></audio>
             <div class="audio-controls-row">
-              <button class="audio-play-btn" aria-label="Play track">
+              <button class="audio-play-btn" aria-label="Play track" tabindex="0">
                 <i class="fa-solid fa-play"></i>
               </button>
               <div class="audio-slider-wrap">
-                <input type="range" class="audio-slider" value="0" min="0" max="100">
+                <input type="range" class="audio-slider" value="0" min="0" max="100" aria-label="Seek audio">
                 <span class="audio-time">0:00 / 0:00</span>
               </div>
             </div>
+            <div class="audio-error-msg"></div>
             <div class="audio-visualizer">
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
               <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1990,8 +2108,7 @@
     }
 
     // Toggle Play/Pause
-    playBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); // prevent background canvas click ripple
+    const togglePlay = () => {
       if (audio.paused) {
         // Pause all other players
         audioPlayers.forEach(otherPlayer => {
@@ -2007,13 +2124,41 @@
           .then(() => {
             playIcon.className = 'fa-solid fa-pause';
             visualizer.classList.add('playing');
+            playBtn.setAttribute('aria-label', 'Pause track');
+            errorMsg.style.display = 'none';
           })
-          .catch(err => console.log("Audio play blocked/failed:", err));
+          .catch(err => {
+            console.log("Audio play blocked/failed:", err);
+            errorMsg.textContent = "Error loading audio";
+            errorMsg.style.display = 'block';
+          });
       } else {
         audio.pause();
         playIcon.className = 'fa-solid fa-play';
         visualizer.classList.remove('playing');
+        playBtn.setAttribute('aria-label', 'Play track');
       }
+    };
+
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent background canvas click ripple
+      togglePlay();
+    });
+
+    // Keyboard support for play button
+    playBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        togglePlay();
+      }
+    });
+
+    // Error handling
+    audio.addEventListener('error', () => {
+      errorMsg.textContent = "Audio file not found or corrupted";
+      errorMsg.style.display = 'block';
+      playBtn.style.opacity = '0.5';
+      playBtn.style.pointerEvents = 'none';
     });
 
     // Update progress slider & time
@@ -2042,10 +2187,27 @@
   /* ══════════════════════════════════════
      TECHNICAL SPECS FULLSCREEN LIGHTBOX
      ══════════════════════════════════════ */
-  const projectCards = document.querySelectorAll('.project-card, .project-card-featured');
-  const assetCards = document.querySelectorAll('.asset-card');
+  const projectCards = Array.from(document.querySelectorAll('.project-card, .project-card-featured'));
+  const assetCards = Array.from(document.querySelectorAll('.asset-card'));
+  
+  let currentItems = [];
+  let currentIndex = -1;
+  let currentType = '';
 
   function openLightbox(card, type) {
+    currentType = type;
+    currentItems = type === 'project' ? projectCards : assetCards;
+    currentIndex = currentItems.indexOf(card);
+    
+    updateLightboxContent(card, type);
+
+    // Show modal
+    const modal = document.getElementById('lightboxModal');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // lock background scroll
+  }
+
+  function updateLightboxContent(card, type) {
     const img = card.querySelector('img').src;
     const title = card.querySelector('h3').textContent;
     const category = card.querySelector('.project-thumb-label')?.textContent || (type === 'project' ? 'Game Project' : '3D Art Asset');
@@ -2111,11 +2273,18 @@
     }
 
     document.getElementById('lightboxTags').innerHTML = tagsHtml;
+  }
 
-    // Show modal
-    const modal = document.getElementById('lightboxModal');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden'; // lock background scroll
+  function nextItem() {
+    if (currentIndex === -1) return;
+    currentIndex = (currentIndex + 1) % currentItems.length;
+    updateLightboxContent(currentItems[currentIndex], currentType);
+  }
+
+  function prevItem() {
+    if (currentIndex === -1) return;
+    currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+    updateLightboxContent(currentItems[currentIndex], currentType);
   }
 
   // Bind clicks
@@ -2140,14 +2309,22 @@
     const modal = document.getElementById('lightboxModal');
     modal.classList.remove('open');
     document.body.style.overflow = '';
+    currentIndex = -1;
   };
 
   document.getElementById('lightboxClose').addEventListener('click', closeModal);
   document.getElementById('lightboxBackdrop').addEventListener('click', closeModal);
 
   window.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('lightboxModal');
+    if (!modal.classList.contains('open')) return;
+
     if (e.key === 'Escape') {
       closeModal();
+    } else if (e.key === 'ArrowRight') {
+      nextItem();
+    } else if (e.key === 'ArrowLeft') {
+      prevItem();
     }
   });
 
@@ -2189,7 +2366,7 @@
     revealObserver.observe(el);
   });
 
-  // 2. Active nav link highlight — scroll-based for reliability with tall sections
+  // 2. Active nav link highlight. Scroll-based for reliability with tall sections.
   const navSections = document.querySelectorAll('section[id]');
   const allNavLinks = document.querySelectorAll('.nav-links a, .nav-mobile a');
   let isScrollingFromClick = false;
